@@ -93,7 +93,7 @@
 
       
       <li class="section">Administration</li>
-      <li><a href="../modules/sub_admins.php"><span class="material-icons">admin_panel_settings</span> Sub-Admins</a></li>
+      <li><a href="../modules/sub_admins.php"><span class="material-icons">admin_panel_settings</span> Sub-Admin</a></li>
       <li><a href="../modules/security.php"><span class="material-icons">security</span> Security</a></li>
       <li><a href="../modules/audit_logs.php"><span class="material-icons">receipt</span> Audit Logs</a></li>
       <li><a href="../modules/settings.php"><span class="material-icons">settings</span> Settings</a></li>
