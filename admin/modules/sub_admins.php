@@ -1,5 +1,10 @@
-<?php include '../templates/sidebar.php'; include '../templates/header.php';  ?>
+
+
 <?php
+
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
 // Database connection
 $conn = new mysqli("localhost", "root", "", "dollario_admin");
 

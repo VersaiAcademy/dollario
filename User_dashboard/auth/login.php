@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if user is active and password matches
         if ($status === 'active' && password_verify($password, $hashed_password)) {
             $_SESSION['user_id'] = $id;
-            header("Location: ../dashboard.php");  // Redirect to User Dashboard
+            header("Location: ../page/dashboard.php");  // Redirect to User Dashboard
             exit;
         } else {
             echo "Your account is not active or password is incorrect!";
