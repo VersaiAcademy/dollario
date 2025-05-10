@@ -27,13 +27,13 @@ $walletStmt = $pdo->prepare("SELECT * FROM wallets WHERE user_id = ?");
 $walletStmt->execute([$userId]);
 $wallet = $walletStmt->fetch(PDO::FETCH_ASSOC) ?? ['inr_balance' => 0, 'usdt_balance' => 0];
 
-// Fetch KYC status safely
-$kycStmt = $pdo->prepare("SELECT status, approved_at FROM kyc_verifications WHERE user_id = ? ORDER BY id DESC LIMIT 1");
+// Fetch KYC status safely (removed approved_at to avoid error)
+$kycStmt = $pdo->prepare("SELECT status FROM kyc_verifications WHERE user_id = ? ORDER BY id DESC LIMIT 1");
 $kycStmt->execute([$userId]);
 $kyc = $kycStmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$kyc) {
-    $kyc = ['status' => 'not_verified', 'approved_at' => null];
+    $kyc = ['status' => 'not_verified'];
 }
 
 // Current USDT price (simulated)
@@ -79,9 +79,9 @@ $currentPrice = 84.50 + (rand(-100, 100) / 100);
     /* ======== Main Content ======== */
     .main-content {
       flex: 1;
-      padding: 32px;
+    
       display: grid;
-      gap: 24px;
+    
       margin-left: 260px;
     }
 

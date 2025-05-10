@@ -86,7 +86,7 @@ $priceChange = (($currentPrice - $historicalData[count($historicalData)-2]['clos
     /* ======== Main Content ======== */
     .main-content {
       flex: 1;
-      padding: 32px;
+      
       display: grid;
       gap: 24px;
       margin-left: 260px;

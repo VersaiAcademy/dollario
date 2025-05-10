@@ -1,3 +1,4 @@
+<?php include('../sidebar.php'); ?>
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -87,139 +88,178 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
+
+
+$kycStatus = $kycStatus ?? 'pending';
+$rejectionReason = $rejectionReason ?? '';
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DollaRio Pro - KYC Verification</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <style>
-   body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f7fb;
-  margin: 0;
-  padding: 0;
-}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
 
-.kyc-container {
-  max-width: 700px;
-  margin: 40px auto;
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-}
+    .kyc-wrapper {
+      max-width: 800px;
+      margin-left: 260px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
 
-.kyc-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
+    .kyc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
 
-.kyc-header h1 {
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  gap: 10px;
-}
+    .kyc-header h2 {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      gap: 10px;
+    }
 
-.kyc-badge {
-  padding: 6px 14px;
-  border-radius: 50px;
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: capitalize;
-  color: white;
-}
+    .kyc-badge {
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
 
-.kyc-badge.approved { background-color: #4CAF50; }
+    .approved { background: #2ecc71; }
+    .pending { background: #f1c40f; }
+    .rejected { background: #e74c3c; }
 
-.kyc-badge.rejected { background-color: #F44336; }
+    .upload-section {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 1fr;
+    }
 
-.success-text { color: green; font-weight: 500; margin-bottom: 15px; }
-.error-text { color: red; font-weight: 500; margin-bottom: 15px; }
-.info-text { color: #333; font-weight: 500; margin-bottom: 15px; }
+    .upload-box {
+      border: 2px dashed #ccc;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
 
-.kyc-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 30px;
-}
+    .upload-box:hover {
+      border-color: #0066ff;
+      background: #f9fbff;
+    }
 
-.kyc-form label {
-  font-weight: 600;
-}
+    .upload-box input {
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+    }
 
-.kyc-form input[type="file"] {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
+    .upload-box .material-icons-round {
+      font-size: 36px;
+      color: #0066ff;
+      margin-bottom: 8px;
+    }
 
-.kyc-form button {
-  margin-top: 10px;
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  background-color: #1e88e5;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
+    .kyc-btn {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      background: #0066ff;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-.kyc-form button:hover {
-  background-color: #0d6efd;
-}
+    .kyc-btn:hover {
+      background: #0052cc;
+    }
 
-.status-card {
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-  background-color: #eef2f7;
-  padding: 20px;
-  border-radius: 10px;
-  align-items: center;
-}
+    .kyc-status, .success-text, .error-text {
+      margin-top: 30px;
+      padding: 15px;
+      border-radius: 10px;
+    }
 
-.status-icon span {
-  font-size: 48px;
-  color: #1e88e5;
-}
+    .kyc-status {
+      background: #f9f9f9;
+      border-left: 4px solid #0066ff;
+    }
 
-.status-content h3 {
-  margin: 0 0 10px 0;
-}
+    .success-text {
+      background-color: #e0f8e9;
+      color: #2e7d32;
+      border-left: 4px solid #2ecc71;
+    }
 
-.note {
-  font-style: italic;
-  color: #666;
-}
+    .error-text {
+      background-color: #ffe8e8;
+      color: #c0392b;
+      border-left: 4px solid #e74c3c;
+    }
 
+    .faq-section {
+      margin-top: 40px;
+    }
+
+    .faq-section h3 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .faq-section ul {
+      padding-left: 20px;
+    }
+
+    .faq-section ul li {
+      margin-bottom: 10px;
+    }
+
+    @media(max-width: 768px) {
+      .upload-section {
+        grid-template-columns: 1fr;
+      }
+
+      .kyc-wrapper {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
-  <?php include('../sidebar.php'); ?>
-  
 
-  <!-- Main Content -->
- <main class="main-content">
-  <div class="kyc-container">
+  <div class="kyc-wrapper">
     <div class="kyc-header">
-      <h1>
-        <span class="material-icons-round">verified_user</span>
-        KYC Verification
-      </h1>
-      <span class="kyc-badge <?= $kycStatus ?>">
-        <?= ucfirst($kycStatus) ?>
-      </span>
+      <h2><span class="material-icons-round">verified_user</span>KYC Verification</h2>
+      <span class="kyc-badge <?= $kycStatus ?>"><?= ucfirst($kycStatus) ?></span>
     </div>
 
     <?php if (!empty($rejectionReason)): ?>
@@ -227,114 +267,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <?php if (isset($_GET['success'])): ?>
-      <p class="success-text">KYC documents submitted successfully!</p>
+      <p class="success-text">✅ KYC documents submitted successfully!</p>
     <?php endif; ?>
 
-    <?php if (isset($_GET['error'])): ?>
-      <p class="error-text">Error: <?= htmlspecialchars($_GET['error']) ?></p>
-    <?php endif; ?>
+    <?php if ($kycStatus !== 'approved'): ?>
+      <form action="kyc.php" method="POST" enctype="multipart/form-data">
+        <div class="upload-section">
+          <label class="upload-box">
+            <span class="material-icons-round">credit_card</span>
+            <div>PAN Card</div>
+            <input type="file" name="pan_file" required>
+          </label>
 
-    <?php if ($kycStatus === 'approved'): ?>
-      <div class="info-text">Your KYC is approved. No further action is needed.</div>
-    <?php else: ?>
-      <form action="kyc.php" method="POST" enctype="multipart/form-data" class="kyc-form">
-        <label>PAN Card:</label>
-        <input type="file" name="pan_file" required>
+          <label class="upload-box">
+            <span class="material-icons-round">badge</span>
+            <div>Aadhaar Card</div>
+            <input type="file" name="aadhaar_file" required>
+          </label>
 
-        <label>Aadhaar Card:</label>
-        <input type="file" name="aadhaar_file" required>
+          <label class="upload-box">
+            <span class="material-icons-round">account_balance</span>
+            <div>Bank Statement</div>
+            <input type="file" name="bank_file" required>
+          </label>
+        </div>
 
-        <label>Bank Statement:</label>
-        <input type="file" name="bank_file" required>
-
-        <button type="submit">Submit KYC</button>
+        <button type="submit" class="kyc-btn">Submit Documents</button>
       </form>
+      
+    <?php else: ?>
+      <div class="kyc-status">
+        ✅ Your KYC is already approved. No further action is needed.
+      </div>
     <?php endif; ?>
+    
 
-    <div class="status-card">
-      <div class="status-icon">
-        <span class="material-icons-round">
-          <?= $kycStatus === 'approved' ? 'verified' : ($kycStatus === 'rejected' ? 'error' : 'pending_actions') ?>
-        </span>
-      </div>
-      <div class="status-content">
-        <h3>
-          <?= $kycStatus === 'approved' ? 'KYC Verification Completed' : 
-             ($kycStatus === 'rejected' ? 'KYC Verification Rejected' : 'KYC Verification in Progress') ?>
-        </h3>
-        <p>
-          <?php if ($kycStatus === 'approved'): ?>
-            Your KYC verification has been successfully completed. You now have full access to all platform features.
-          <?php elseif ($kycStatus === 'rejected'): ?>
-            Your KYC verification was rejected. Please review the reason and submit new documents.
-          <?php else: ?>
-            Your documents are being verified by our team. This process usually takes 24-48 hours.
-          <?php endif; ?>
-        </p>
-        <?php if ($kycStatus === 'pending'): ?>
-          <p class="note">We’ve integrated with Digio for automated verification. You'll receive an email once completed.</p>
-        <?php endif; ?>
-      </div>
+    <div class="faq-section">
+      <h3>Frequently Asked Questions (KYC)</h3>
+      <ul>
+        <li><strong>Why is KYC needed?</strong> <br>It helps us verify your identity and comply with financial regulations.</li>
+        <li><strong>How long does KYC approval take?</strong> <br>Usually within 24–48 hours after document submission.</li>
+        <li><strong>What if my KYC gets rejected?</strong> <br>We will notify you with a reason so you can re-submit with corrections.</li>
+        <li><strong>Is my data secure?</strong> <br>Yes, we use encrypted and secure servers to protect your documents.</li>
+      </ul>
     </div>
   </div>
-</main>
-  <script>
-  // Document Upload Preview Functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    // PAN Card Upload
-    document.getElementById('panFile').addEventListener('change', function(e) {
-      handleFileUpload(e, 'panPreview', 2);
-    });
-    
-    // Aadhaar Card Upload
-    document.getElementById('aadhaarFile').addEventListener('change', function(e) {
-      handleFileUpload(e, 'aadhaarPreview', 5);
-    });
-    
-    // Bank Statement Upload
-    document.getElementById('bankFile').addEventListener('change', function(e) {
-      handleFileUpload(e, 'bankPreview', 5);
-    });
-  });
 
-  function handleFileUpload(event, previewId, maxSizeMB) {
-    const file = event.target.files[0];
-    const previewArea = document.getElementById(previewId);
-    
-    if (!file) return;
-    
-    // Validate file size
-    if (file.size > maxSizeMB * 1024 * 1024) {
-      alert(`File size should be less than ${maxSizeMB}MB`);
-      event.target.value = ''; // Clear the file input
-      return;
-    }
-    
-    // Show preview
-    previewArea.style.display = 'block';
-    
-    if (file.type.match('image.*')) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        previewArea.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-      };
-      reader.readAsDataURL(file);
-    } else if (file.type === 'application/pdf') {
-      previewArea.innerHTML = `
-        <div class="pdf-preview">
-          <span class="material-icons-round">picture_as_pdf</span>
-          <p>${file.name}</p>
-        </div>
-      `;
-    } else {
-      previewArea.innerHTML = `
-        <div class="doc-preview">
-          <span class="material-icons-round">description</span>
-          <p>${file.name}</p>
-        </div>
-      `;
-    }
-  }
-  </script>
 </body>
 </html>

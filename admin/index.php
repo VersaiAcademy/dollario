@@ -350,6 +350,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
     </style>
 </head>
 
+
 <body>
     <header>
         <nav class="nav-container">
@@ -357,10 +358,10 @@ $pageTitle = "DollaRio - Crypto Exchange";
                 <img src="uploads/Dollario-logo .svg" alt="Logo">
             </div>
             <div class="nav-links">
-                <a href="#"><i class="fas fa-exchange-alt"></i> Trade</a>
-                <a href="#"><i class="fas fa-chart-line"></i> Markets</a>
-                <a href="#"><i class="fas fa-wallet"></i> Wallet</a>
-                <a href="#"><i class="fas fa-user"></i> Register</a>
+                <!--<a href="#"><i class="fas fa-exchange-alt"></i> Trade</a>
+                <a href="#"><i class="fas fa-chart-line"></i> Markets</a>-->
+                <a href="../User_dashboard/auth/login.php"><i class="fas fa-login"></i>Login</a>
+                <a href="../User_dashboard/auth/signup.php"><i class="fas fa-user"></i> Register</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
