@@ -255,11 +255,54 @@ function get24hPriceChange() {
       }
 
       .main-content {
-        padding: 24px;
+      
         width: 100%;
         margin-left: 0;
       }
     }
+
+    /* Basic Styling */
+/* Default header styles for larger screens */
+
+
+  /* Hide header by default (for screens larger than 768px) */
+header {
+  display: none;
+}
+
+/* Show header only on phone view (768px and below) */
+@media (max-width: 768px) {
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color:#0e1a2b; /* You can change this */
+    color: white;
+  }
+
+  .logo-container {
+    flex: 1;
+    text-align: left;
+  }
+
+  .menu-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .menu-btn {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+}
+
+
   </style>
 </head>
 <body>
@@ -267,7 +310,18 @@ function get24hPriceChange() {
   <?php include('../sidebar.php'); ?>
 
   <!-- Main Content -->
+ 
+
   <main class="main-content">
+
+     <header>
+  <div class="logo-container">
+    <img src="../image/dollario-logo.png" alt="Logo" class="logo" style="width: 200px;">
+  </div>
+  <div class="menu-container">
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
     <!-- Dashboard View -->
     <div class="dashboard-grid <?php echo $currentPage === 'dashboard' ? 'active' : ''; ?>" id="dashboard-view">
       <!-- Wallet Summary -->
@@ -280,7 +334,7 @@ function get24hPriceChange() {
           <span class="material-icons-round">more_vert</span>
         </div>
         <div class="balance-display">
-          <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">
+          <div style="font-size: 1.7rem; font-weight: 700; color: var(--primary);">
           <?php
 $totalBalance = $wallet['inr_balance'] + ($wallet['usdt_balance'] * $currentPrice);
 echo '₹' . number_format($totalBalance, 2);
@@ -528,6 +582,16 @@ function calculateTotal() {
         }
       });
     }
+  </script>
+  <script>
+   const menuBtn = document.querySelector('.menu-btn');
+const sidebar = document.querySelector('.sidebar');
+
+menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+});
+
+
   </script>
 </body>
 </html>

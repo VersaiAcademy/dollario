@@ -252,9 +252,56 @@ $rejectionReason = $rejectionReason ?? '';
         margin-right: 20px;
       }
     }
+
+    @media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+/* Show header only on phone view (768px and below) */
+@media (max-width: 768px) {
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color:#0e1a2b; /* You can change this */
+    color: white;
+  }
+
+  .logo-container {
+    flex: 1;
+    text-align: left;
+  }
+
+  .menu-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .menu-btn {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+}
+
   </style>
 </head>
 <body>
+      <header>
+  <div class="logo-container">
+    <img src="../image/dollario-logo.png" alt="Logo" class="logo" style="width: 200px;">
+  </div>
+  <div class="menu-container">
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
 
   <div class="kyc-wrapper">
     <div class="kyc-header">
@@ -311,7 +358,16 @@ $rejectionReason = $rejectionReason ?? '';
         <li><strong>Is my data secure?</strong> <br>Yes, we use encrypted and secure servers to protect your documents.</li>
       </ul>
     </div>
-  </div>
+  </div> <script>
+   const menuBtn = document.querySelector('.menu-btn');
+const sidebar = document.querySelector('.sidebar');
+
+menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+});
+
+
+  </script>
 
 </body>
 </html>

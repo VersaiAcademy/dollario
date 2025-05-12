@@ -442,7 +442,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content"> 
         <div class="container">
             <div class="page-header">
                 <h1 class="page-title">Notification Settings</h1>

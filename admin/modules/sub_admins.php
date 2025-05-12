@@ -1,20 +1,17 @@
-
-
 <?php
-
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
-// Database connection
-$conn = new mysqli("localhost", "root", "", "dollario_admin");
 
-// Connect to database
-try {
-    $pdo = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
-}
+// ✅ Add this block before DB connection
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'dollario_admin');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+
+// Database connection using PDO
+$pdo = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -66,7 +63,7 @@ function addSubAdmin($pdo) {
         // Insert sub-admin
         $stmt = $pdo->prepare("INSERT INTO sub_admins (admin_id, first_name, last_name, email, phone, password_hash, role, status) 
                               VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([
+        $stmt->execute([ 
             $admin_id,
             $_POST['first_name'],
             $_POST['last_name'],
@@ -88,7 +85,7 @@ function addSubAdmin($pdo) {
         ];
         
         foreach ($permissions as $permission) {
-            $granted = isset($POST['perm' . $permission]) ? 1 : 0;
+            $granted = isset($_POST['perm' . $permission]) ? 1 : 0;
             $stmt = $pdo->prepare("INSERT INTO sub_admin_permissions (sub_admin_id, permission_key, granted) 
                                   VALUES (?, ?, ?)");
             $stmt->execute([$sub_admin_id, $permission, $granted]);
@@ -216,3 +213,87 @@ $counts = getSubAdminCounts($pdo);
 $pageTitle = "Sub-Admins | Dollario Admin";
 $activePage = "Sub-Admins";
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sub Admins</title>
+    <style>
+        .status-btn {
+            padding: 6px 12px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+        }
+
+        .active-btn {
+            background-color: #28a745;
+        }
+
+        .inactive-btn {
+            background-color: #dc3545;
+        }
+
+        .disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 30px auto;
+            font-family: Arial, sans-serif;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sub Admins List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($sub_admins as $admin): ?>
+                <tr>
+                    <td><?= htmlspecialchars($admin['admin_id'] ?? '') ?></td>
+                    <td><?= htmlspecialchars(($admin['first_name'] ?? '') . ' ' . ($admin['last_name'] ?? '')) ?></td>
+                    <td><?= htmlspecialchars($admin['email'] ?? '') ?></td>
+                    <td>
+                        <form method="POST">
+                            <input type="hidden" name="admin_id" value="<?= htmlspecialchars($admin['admin_id'] ?? '') ?>">
+                            <button type="submit" name="action" value="toggle_status" class="status-btn <?= ($admin['status'] ?? '') == 'active' ? 'inactive-btn' : 'active-btn' ?>">
+                                <?= ($admin['status'] ?? '') == 'active' ? 'Deactivate' : 'Activate' ?>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</body>
+</html>

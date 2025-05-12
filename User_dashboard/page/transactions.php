@@ -1,3 +1,4 @@
+ <?php include('../sidebar.php'); ?>
 <?php 
 // Start session to get user ID
 session_start();
@@ -139,7 +140,7 @@ try {
     /* Main Content */
     .main-content {
       flex: 1;
-      padding: 32px;
+      padding: 11px;
       display: grid;
       gap: 24px;
       margin-left: 260px;
@@ -215,12 +216,13 @@ try {
     }
 
     .table-header {
+      
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
       padding: 16px 24px;
       background: var(--background);
       font-weight: 600;
-      color: var(--text-primary);
+      color: var(--text-primary); 
       border-bottom: 1px solid #e2e8f0;
     }
 
@@ -333,6 +335,12 @@ try {
       cursor: not-allowed;
     }
 
+
+
+.sidebar.active {
+  display: block;
+}
+
     /* Responsive styles */
     @media (max-width: 1024px) {
       .main-content {
@@ -348,10 +356,12 @@ try {
       }
     }
 
-    @media (max-width: 768px) {
-      .main-content {
-        padding: 24px;
-      }
+   @media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
+
       
       .table-header, .table-row {
         grid-template-columns: 1.5fr 1fr 1fr;
@@ -375,14 +385,64 @@ try {
         display: none;
       }
     }
+
+    header {
+  display: none;
+}
+
+
+/* Show header only on phone view (768px and below) */
+@media (max-width: 768px) {
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color:#0e1a2b; /* You can change this */
+    color: white;
+  }
+
+  .logo-container {
+    flex: 1;
+    text-align: left;
+  }
+
+  .menu-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .menu-btn {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+}
+
+
+
   </style>
 </head>
 <body>
   <!-- Sidebar -->
-  <?php include('../sidebar.php'); ?>
+ 
+ 
 
   <!-- Main Content -->
   <main class="main-content">
+       <header>
+  <div class="logo-container">
+    <img src="../image/dollario-logo.png" alt="Logo" class="logo" style="width: 200px;">
+  </div>
+  <div class="menu-container">
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+    
     <div class="page-header">
       <h1 class="page-title">
         <span class="material-icons-round">history</span>
@@ -593,6 +653,16 @@ try {
       // Save the PDF
       doc.save('transaction_history_<?= date('Y-m-d') ?>.pdf');
     }
+  </script>
+    <script>
+   const menuBtn = document.querySelector('.menu-btn');
+const sidebar = document.querySelector('.sidebar');
+
+menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+});
+
+
   </script>
 </body>
 </html>

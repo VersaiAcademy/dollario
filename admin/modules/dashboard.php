@@ -1,7 +1,5 @@
-<?php include 'templates/sidebar.php'; ?>
-<?php include 'templates/header.php'; ?>
-
-
+<?php include '../templates/sidebar.php'; ?>
+<?php include '../templates/header.php'; ?>
 <?php
 // Database connection (example using PDO)
 $servername = "localhost"; // or $host = "localhost";
@@ -407,7 +405,7 @@ if ($result->num_rows > 0) {
             <td>{$userId}</td>
             <td>
                 <div style='display: flex; align-items: center; gap: 10px;'>
-                    <img src='{$img}' alt='User' style='width: 30px; height: 30px; border-radius: 50%;'>
+                    
                     <span>{$name}</span>
                 </div>
             </td>
@@ -682,5 +680,5 @@ if ($result->num_rows > 0) {
     });
 </script>
 
-<?php include 'templates/footer.php'; ?>
+<?php include '../templates/footer.php'; ?>
 
