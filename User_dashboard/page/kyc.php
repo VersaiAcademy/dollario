@@ -294,14 +294,7 @@ $rejectionReason = $rejectionReason ?? '';
   </style>
 </head>
 <body>
-      <header>
-  <div class="logo-container">
-    <img src="../image/dollario-logo.png" alt="Logo" class="logo" style="width: 200px;">
-  </div>
-  <div class="menu-container">
-    <button class="menu-btn">☰</button>
-  </div>
-</header>
+      
 
   <div class="kyc-wrapper">
     <div class="kyc-header">

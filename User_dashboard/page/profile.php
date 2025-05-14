@@ -276,7 +276,7 @@ $currentPrice = 84.50 + (rand(-100, 100) / 100);
 
     @media (max-width: 768px) {
       .main-content {
-        padding: 24px;
+       
         margin-left: 0;
       }
 
@@ -296,6 +296,40 @@ $currentPrice = 84.50 + (rand(-100, 100) / 100);
         gap: 8px;
       }
     }
+
+    /* Default: hide header on desktop */
+header {
+  display: none;
+  background-color: #0e1a2b;
+  padding: 10px 20px;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+/* Show header only on phones/tablets */
+@media (max-width: 768px) {
+  header {
+    display: flex;
+  }
+  .container{
+    margin-left: 0px;
+  }
+}
+
+.logo-container img.logo {
+  width: 150px;
+  height: auto;
+}
+
+.menu-container .menu-btn {
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
   </style>
 </head>
 <body>
@@ -304,6 +338,14 @@ $currentPrice = 84.50 + (rand(-100, 100) / 100);
 
   <!-- Main Content -->
   <main class="main-content">
+    <header>
+  <div class="logo-container">
+    <img src="../image/dollario-logo.png" alt="Logo" class="logo" style="width: 200px;">
+  </div>
+  <div class="menu-container">
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
     <div class="page-header">
       <h1 class="page-title">
         <span class="material-icons-round">person</span>

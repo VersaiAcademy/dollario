@@ -191,11 +191,61 @@ $bonus_query = $conn->query("SELECT * FROM referral_bonus WHERE referred_by = $u
         .btn:hover {
             background-color: #218838;
         }
+
+        @media (max-width: 768px) {
+  header {
+    display: flex;
+  }
+  .container{
+    margin-left: 0px;
+  }
+}
+
+/* Default: hide header on desktop */
+header {
+  display: none;
+  background-color: #0e1a2b;
+  padding: 10px 20px;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+/* Show header only on phones/tablets */
+@media (max-width: 768px) {
+  header {
+    display: flex;
+  }
+  .container{
+    margin-left: 0px;
+  }
+}
+
+.logo-container img.logo {
+  width: 150px;
+  height: auto;
+}
+
+.menu-container .menu-btn {
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
     </style>
 </head>
 <body>
 
 <div class="container">
+     <header>
+  <div class="logo-container">
+    <img src="../image/dollario-logo.png" alt="Logo" class="logo" style="width: 200px;">
+  </div>
+  <div class="menu-container">
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
 
     <h2>Your Referral Dashboard</h2>
 

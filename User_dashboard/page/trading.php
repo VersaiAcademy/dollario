@@ -189,7 +189,7 @@ $priceChange = (($currentPrice - $historicalData[count($historicalData)-2]['clos
     /* ======== Responsive Styles ======== */
     @media (max-width: 768px) {
       .main-content {
-        padding: 24px;
+      width: 100%;
         margin-left: 0;
       }
 
@@ -205,6 +205,59 @@ $priceChange = (($currentPrice - $historicalData[count($historicalData)-2]['clos
         padding-bottom: 8px;
       }
     }
+      header {
+      display: none;
+    }
+     @media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+
+  
+    @media (max-width: 768px) {
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: #0e1a2b;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .logo {
+        width: 150px;
+        max-width: 100%;
+      }
+
+      .menu-btn {
+        font-size: 26px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: block;
+      }
+    }
+   
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block; /* show menu button in phone view */
+      }
+
+      .logo-container {
+        flex: 1;
+      }
+
+      .menu-container {
+        display: flex;
+        justify-content: flex-end;
+        flex: 1;
+      }
+    }
+    
   </style>
 </head>
 <body>
@@ -213,6 +266,16 @@ $priceChange = (($currentPrice - $historicalData[count($historicalData)-2]['clos
 
   <!-- Main Content -->
   <main class="main-content">
+  
+  <header>
+    <div class="logo-container">
+      <img src="../image/dollario-logo.png" alt="Logo" class="logo" style="width: 200px;">
+    </div>
+    <div class="menu-container">
+      <button class="menu-btn">☰</button>
+    </div>
+  </header>
+
     <div class="page-header">
       <h1 class="page-title">
         <span class="material-icons-round">show_chart</span>

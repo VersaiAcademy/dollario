@@ -307,21 +307,22 @@ header {
 </head>
 <body>
   <!-- Sidebar -->
-  <?php include('../sidebar.php'); ?>
+ 
 
   <!-- Main Content -->
  
 
   <main class="main-content">
 
-     <header>
+  <header>
   <div class="logo-container">
     <img src="../image/dollario-logo.png" alt="Logo" class="logo" style="width: 200px;">
   </div>
   <div class="menu-container">
-    <button class="menu-btn">☰</button>
+    <button class="menu-btn" id="menuToggle">☰</button>
   </div>
 </header>
+
     <!-- Dashboard View -->
     <div class="dashboard-grid <?php echo $currentPage === 'dashboard' ? 'active' : ''; ?>" id="dashboard-view">
       <!-- Wallet Summary -->
@@ -583,15 +584,17 @@ function calculateTotal() {
       });
     }
   </script>
-  <script>
-   const menuBtn = document.querySelector('.menu-btn');
-const sidebar = document.querySelector('.sidebar');
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const menuBtn = document.querySelector('.menu-btn');
+    const sidebar = document.querySelector('.sidebar');
 
-menuBtn.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
-});
-
-
-  </script>
+    if (menuBtn && sidebar) {
+      menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+      });
+    }
+  });
+</script>
 </body>
 </html>

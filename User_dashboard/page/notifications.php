@@ -412,7 +412,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .header-container, .footer-content {
                 flex-direction: column;
                 gap: 1rem;
+
             }
+            .main-content{
+                margin-left: 0%;
+            }
+    
             
             .nav-links {
                 flex-wrap: wrap;
@@ -425,6 +430,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 gap: 1rem;
             }
         }
+        
     </style>
 </head>
 <body>

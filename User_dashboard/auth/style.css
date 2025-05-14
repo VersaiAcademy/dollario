@@ -40,6 +40,7 @@ form label {
 }
 
 form input[type="email"],
+form input[type="mobile"],
 form input[type="password"] {
   width: 100%;
   padding: 14px;

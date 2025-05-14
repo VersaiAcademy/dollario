@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $historyStmt->execute();
             $historyStmt->close();
 
-            header('Location: dashboard.php');
+            header('Location: modules/dashboard.php');
             exit();
         } else {
             $error = "Invalid email or password!";
