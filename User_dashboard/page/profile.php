@@ -1,4 +1,5 @@
 <?php include('../sidebar.php'); ?>
+
 <?php
 // Database connection
 $host = 'localhost';
@@ -16,8 +17,8 @@ try {
 // Get current page from URL
 $currentPage = isset($_GET['page']) ? $_GET['page'] : 'profile';
 
-// Fetch user data from database
-$userId = 1; // In real app, this would come from session
+// Fetch current logged-in user (replace with session logic in real app)
+$userId = 1;
 $userStmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $userStmt->execute([$userId]);
 $user = $userStmt->fetch(PDO::FETCH_ASSOC);
@@ -27,17 +28,36 @@ $walletStmt = $pdo->prepare("SELECT * FROM wallets WHERE user_id = ?");
 $walletStmt->execute([$userId]);
 $wallet = $walletStmt->fetch(PDO::FETCH_ASSOC) ?? ['inr_balance' => 0, 'usdt_balance' => 0];
 
-// Fetch KYC status safely (removed approved_at to avoid error)
+// Fetch KYC status
 $kycStmt = $pdo->prepare("SELECT status FROM kyc_verifications WHERE user_id = ? ORDER BY id DESC LIMIT 1");
 $kycStmt->execute([$userId]);
 $kyc = $kycStmt->fetch(PDO::FETCH_ASSOC);
-
 if (!$kyc) {
     $kyc = ['status' => 'not_verified'];
 }
 
 // Current USDT price (simulated)
 $currentPrice = 84.50 + (rand(-100, 100) / 100);
+
+// ✅ Fetch all users
+$usersStmt = $pdo->query("SELECT * FROM users");
+$users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+if (isset($_GET['success']) && $_GET['success'] == 'profile_updated') {
+    echo "<p style='color:green;'>Profile updated successfully!</p>";
+} elseif (isset($_GET['error']) && $_GET['error'] == 'update_failed') {
+    echo "<p style='color:red;'>Failed to update profile. Try again.</p>";
+}
+
+// bank detals
+$bankStmt = $pdo->prepare("SELECT * FROM bank_accounts WHERE user_id = ? ORDER BY is_primary DESC, added_on DESC");
+$bankStmt->execute([$userId]);
+$bankAccounts = $bankStmt->fetchAll(PDO::FETCH_ASSOC);
+
+// kyc 
+
+
 ?>
 
 
@@ -366,54 +386,175 @@ header {
           <span class="material-icons-round">person</span>
         </div>
         <div class="profile-info">
-          <h2><?php echo htmlspecialchars($user['name'] ?? 'User'); ?></h2>
+          <h2><?php echo htmlspecialchars($user['username'] ?? 'Not set'); ?></h2>
           <p>Member since <?php echo date('M Y', strtotime($user['created_at'] ?? 'now')); ?></p>
         </div>
       </div>
 
       <div class="profile-body">
         <!-- Personal Information -->
-        <div class="info-section">
-          <h3 class="section-title">
-            <span class="material-icons-round">badge</span>
-            Personal Information
-          </h3>
-          
-          <div class="info-grid">
-            <div class="info-item">
-              <span class="info-label">Full Name</span>
-              <span class="info-value"><?php echo htmlspecialchars($user['name'] ?? 'Not set'); ?></span>
-            </div>
-            
-            <div class="info-item">
-              <span class="info-label">Email</span>
-              <span class="info-value"><?php echo htmlspecialchars($user['email'] ?? 'Not set'); ?></span>
-            </div>
-            
-            <div class="info-item">
-              <span class="info-label">Phone</span>
-              <span class="info-value"><?php echo htmlspecialchars($user['phone'] ?? 'Not set'); ?></span>
-            </div>
-            
-            <div class="info-item">
-              <span class="info-label">Date of Birth</span>
-              <span class="info-value">
-                <?php echo isset($user['dob']) ? date('d M Y', strtotime($user['dob'])) : 'Not set'; ?>
-              </span>
-            </div>
-          </div>
-          
-          <div class="action-buttons">
-            <button class="btn btn-outline">
-              <span class="material-icons-round">edit</span>
-              Edit Profile
-            </button>
-            <button class="btn btn-outline">
-              <span class="material-icons-round">lock</span>
-              Change Password
-            </button>
-          </div>
-        </div>
+       
+  <div class="info-section">
+    <h3 class="section-title">
+      <span class="material-icons-round">badge</span>
+      Personal Information
+    </h3>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">Full Name</span>
+        <span class="info-value"><?php echo htmlspecialchars($user['username'] ?? 'Not set'); ?></span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">Email</span>
+        <span class="info-value"><?php echo htmlspecialchars($user['email'] ?? 'Not set'); ?></span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">Phone</span>
+        <span class="info-value"><?php echo htmlspecialchars($user['phone'] ?? 'Not set'); ?></span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">Date of Birth</span>
+        <span class="info-value">
+          <?php echo isset($user['dob']) ? date('d M Y', strtotime($user['dob'])) : 'Not set'; ?>
+        </span>
+      </div>
+    </div>
+
+   <style>
+  .form-section {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    background-color: #fff;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .form-section h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .form-section form input {
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+  }
+
+  .form-section form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .form-section form button:hover {
+    background-color: #0056b3;
+  }
+
+  .action-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+  }
+
+  .btn.btn-outline {
+    border: 1px solid #007bff;
+    background-color: transparent;
+    color: #007bff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+  }
+
+  .btn.btn-outline:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+</style>
+
+<div class="action-buttons">
+  <button class="btn btn-outline" onclick="showSection('edit-profile')">
+    <span class="material-icons-round">edit</span>
+    Edit Profile
+  </button>
+  <button class="btn btn-outline" onclick="showSection('change-password')">
+    <span class="material-icons-round">lock</span>
+    Change Password
+  </button>
+</div>
+
+<!-- Edit Profile Section -->
+<div id="edit-profile" class="form-section">
+  <h3>Edit Profile</h3>
+ <form action="../includes/edit_profile.php" method="POST">
+  <input type="text" name="name" placeholder="Full Name" required>
+  <input type="email" name="email" placeholder="Email Address" required>
+  <input type="text" name="phone" placeholder="Phone Number" required>
+  <button type="submit">Save Changes</button>
+</form>
+
+
+</div>
+
+<!-- Change Password Section -->
+<div id="change-password" class="form-section">
+  <h3>Change Password</h3>
+ <form action="../includes/change_password.php" method="POST">
+  <input type="password" name="old_password" placeholder="Old Password" required>
+  <input type="password" name="new_password" placeholder="New Password" required>
+  <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
+  <button type="submit">Update Password</button>
+</form>
+
+
+</div>
+
+<script>
+  function showSection(sectionId) {
+    // Hide all sections first
+    document.querySelectorAll('.form-section').forEach(el => {
+      el.style.display = 'none';
+    });
+
+    // Show the selected section with animation
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.style.display = 'block';
+    }
+  }
+
+  // Optionally show nothing by default
+  showSection(null); 
+</script>
+
+
+  </div>
+
+
 
         <!-- Account Details -->
         <div class="info-section">
@@ -475,12 +616,12 @@ header {
           </div>
           
           <div class="action-buttons">
-            <?php if ($kyc['status'] !== 'verified'): ?>
-              <button class="btn btn-primary">
-                <span class="material-icons-round">verified</span>
-                Complete KYC
-              </button>
-            <?php endif; ?>
+          <?php if ($kyc['status'] !== 'verified'): ?>
+  <a href="kyc.php" class="btn btn-primary">
+    <span class="material-icons-round">verified</span>
+    Complete KYC
+  </a>
+<?php endif; ?>
             <button class="btn btn-outline">
               <span class="material-icons-round">receipt</span>
               View Statements
@@ -489,81 +630,104 @@ header {
         </div>
 
         <!-- Security Settings -->
-        <div class="info-section">
-          <h3 class="section-title">
-            <span class="material-icons-round">security</span>
-            Security Settings
-          </h3>
-          
-          <div class="info-grid">
-            <div class="info-item">
-              <span class="info-label">2FA Authentication</span>
-              <span class="info-value">Not enabled</span>
-            </div>
-            
-            <div class="info-item">
-              <span class="info-label">Last Login</span>
-              <span class="info-value">
-                <?php echo date('d M Y, h:i A', strtotime($user['last_login'] ?? 'now')); ?>
-                <span style="color: var(--text-secondary); font-size: 0.8rem;">
-                  (<?php echo $_SERVER['REMOTE_ADDR'] ?? ''; ?>)
-                </span>
-              </span>
-            </div>
-            
-            <div class="info-item">
-              <span class="info-label">Account Status</span>
-              <span class="info-value" style="color: var(--success);">Active</span>
-            </div>
-          </div>
-          
-          <div class="action-buttons">
-            <button class="btn btn-outline">
-              <span class="material-icons-round">admin_panel_settings</span>
-              Enable 2FA
-            </button>
-            <button class="btn btn-outline">
-              <span class="material-icons-round">devices</span>
-              Manage Devices
-            </button>
-          </div>
-        </div>
+      <div class="info-section">
+  <h3 class="section-title">
+    <span class="material-icons-round">security</span>
+    Security Settings
+  </h3>
+
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="info-label">2FA Authentication</span>
+      <span class="info-value">
+      <?php echo ($user['two_fa_enabled'] ?? 0) ? 'Enabled' : 'Not enabled'; ?>
+
+      </span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-label">Last Login</span>
+      <span class="info-value">
+        <?php echo date('d M Y, h:i A', strtotime($user['last_login'] ?? 'now')); ?>
+        <span style="color: var(--text-secondary); font-size: 0.8rem;">
+          (<?php echo htmlspecialchars($user['ip_address'] ?? $_SERVER['REMOTE_ADDR']); ?>)
+        </span>
+      </span>
+    </div>
+
+    <div class="info-item">
+      <span class="info-label">Account Status</span>
+      <span class="info-value" style="color: <?php echo ($user['status'] === 'active') ? 'var(--success)' : 'red'; ?>">
+        <?php echo ucfirst($user['status']); ?>
+      </span>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <button class="btn btn-outline">
+      <span class="material-icons-round">admin_panel_settings</span>
+          <?php echo ($user['two_fa_enabled'] ?? 0) ? 'Enabled' : 'Not enabled'; ?>
+    </button>
+
+    <button class="btn btn-outline">
+      <span class="material-icons-round">devices</span>
+      Manage Devices
+    </button>
+  </div>
+</div>
+
 
         <!-- Bank Accounts -->
         <div class="info-section">
-          <h3 class="section-title">
-            <span class="material-icons-round">account_balance</span>
-            Bank Accounts
-          </h3>
-          
-          <div style="background: var(--background); padding: 16px; border-radius: 12px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-              <div>
-                <strong>ICICI Bank</strong>
-                <div style="color: var(--text-secondary); font-size: 0.9rem;">
-                  XXXX-XXXX-XXXX-7890
-                </div>
-              </div>
-              <span class="material-icons-round" style="color: var(--success);">check_circle</span>
-            </div>
-            
-            <div style="font-size: 0.9rem; color: var(--text-secondary);">
-              <div>Primary account for deposits & withdrawals</div>
-              <div>Added on 15 Jan 2023</div>
+  <h3 class="section-title">
+    <span class="material-icons-round">account_balance</span>
+    Bank Accounts
+  </h3>
+
+  <?php if ($bankAccounts): ?>
+    <?php foreach ($bankAccounts as $bank): ?>
+      <div style="background: var(--background); padding: 16px; border-radius: 12px; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <div>
+            <strong><?= htmlspecialchars($bank['bank_name']) ?></strong>
+            <div style="color: var(--text-secondary); font-size: 0.9rem;">
+              <?= str_repeat('X', strlen($bank['account_number']) - 4) . substr($bank['account_number'], -4) ?>
             </div>
           </div>
-          
-          <div class="action-buttons">
-            <button class="btn btn-outline">
-              <span class="material-icons-round">add</span>
-              Add Bank Account
-            </button>
-            <button class="btn btn-outline">
-              <span class="material-icons-round">swap_horiz</span>
-              Set as Primary
-            </button>
-          </div>
+          <?php if ($bank['is_primary']): ?>
+            <span class="material-icons-round" style="color: var(--success);">check_circle</span>
+          <?php endif; ?>
         </div>
+
+        <div style="font-size: 0.9rem; color: var(--text-secondary);">
+          <div><?= $bank['is_primary'] ? 'Primary account for deposits & withdrawals' : '' ?></div>
+          <div>Added on <?= date('d M Y', strtotime($bank['added_on'])) ?></div>
+        </div>
+
+        <div class="action-buttons" style="margin-top: 10px;">
+          <?php if (!$bank['is_primary']): ?>
+            <form method="post" action="set_primary_account.php">
+              <input type="hidden" name="bank_id" value="<?= $bank['id'] ?>">
+              <button class="btn btn-outline" type="submit">
+                <a href="set_primary.php?account_id=123" class="btn btn-outline">Set as Primary</a>
+
+              </button>
+            </form>
+          <?php endif; ?>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  <?php else: ?>
+    <p style="color: var(--text-secondary);">No bank accounts added yet.</p>
+  <?php endif; ?>
+
+  <div class="action-buttons">
+    <a href="../bank_details/add_bank_account.php" class="btn btn-outline">
+      <span class="material-icons-round">add</span>
+      Add Bank Account
+    </a>
+  </div>
+</div>
       </div>
     </div>
   </main>
