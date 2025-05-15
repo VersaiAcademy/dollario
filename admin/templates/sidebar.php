@@ -83,8 +83,8 @@
       <li class="section">Financial</li>
       <li><a href="../admin/modules/usdt_deposits.php"><span class="material-icons">account_balance_wallet</span> USDT Deposits</a></li>
       <li><a href="../admin/modules/inr_withdrawals.php"><span class="material-icons">money_off</span> INR Withdrawals</a></li>
-      <li><a href="../admin/modules/rate_management.php"><span class="material-icons">trending_up</span> Rate Management</a></li>
-      <li><a href="../admin/modules/transaction_reports.php"><span class="material-icons">receipt_long</span> Transaction Reports</a></li>
+      <!--<li><a href="../admin/modules/rate_management.php"><span class="material-icons">trending_up</span> Rate Management</a></li>
+      <li><a href="../admin/modules/transaction_reports.php"><span class="material-icons">receipt_long</span> Transaction Reports</a></li>-->
 
       <li class="section">Marketing</li>
       <li><a href="../admin/modules/referral_system.php"><span class="material-icons">group_add</span> Referral System</a></li>

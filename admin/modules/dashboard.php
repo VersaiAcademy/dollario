@@ -46,6 +46,17 @@ $transactions = getTransactions($pdo, $currentPage);
 $totalTransactions = countTransactions($pdo);
 $totalPages = ceil($totalTransactions / 5);
 
+// Count Pending KYC
+$kycQuery = "SELECT COUNT(*) as pending_kyc FROM kyc_documents WHERE status = 'pending'";
+
+$stmt = $pdo->query($kycQuery);
+$pendingKycCount = $stmt->fetch(PDO::FETCH_ASSOC)['pending_kyc'];
+// Get Active Investment Count
+$investmentQuery = "SELECT COUNT(*) as active_investments FROM investments WHERE status = 'active'";
+$stmt = $pdo->query($investmentQuery);
+$activeInvestmentCount = $stmt->fetch(PDO::FETCH_ASSOC)['active_investments'];
+
+
 
 ?>
 
@@ -307,28 +318,33 @@ $totalPages = ceil($totalTransactions / 5);
         </div>
 
         <!-- Active Investment -->
-        <div class="col-md-3">
-            <div class="card shadow-sm  mb-4">
-                <div class="card-body text-center">
-                    <h5 class="card-title" style="color: #7f8c8d;"><i class="fas fa-wallet"></i> Active Investment</h5>
-                    <p class="card-text display-4">50</p>
-                    <p class="card-text1 text-success"><i class="fas fa-trending-up"></i>
-                    8.3% from last week</p>
-                </div>
-            </div>
+       <div class="col-md-3">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body text-center">
+            <h5 class="card-title" style="color: #7f8c8d;"><i class="fas fa-wallet"></i> Active Investment</h5>
+            <p class="card-text display-4"><?= $activeInvestmentCount ?></p>
+            <p class="card-text1 text-success"><i class="fas fa-trending-up"></i>
+            8.3% from last week</p>
         </div>
+    </div>
+</div>
 
-        <!-- Pending KYC -->
-        <div class="col-md-3">
-            <div class="card shadow-sm  mb-4">
-                <div class="card-body text-center">
-                    <h5 class="card-title"style="color: #7f8c8d;"><i class="fas fa-id-card-alt"></i> Pending KYC</h5>
-                    <p class="card-text display-4">15</p>
-                    <p class="card-text1 text-success"><i class="fas fa-trending-up"></i> 
-                    3.2% from yesterday</p>
-                </div>
-            </div>
+<!-- Pending KYC Card -->
+<div class="col-md-3">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body text-center">
+            <h5 class="card-title" style="color: #7f8c8d;">
+                <i class="fas fa-id-card-alt"></i> Pending KYC
+            </h5>
+            <p class="card-text display-4"><?= $pendingKycCount ?></p>
+            <p class="card-text1 text-success">
+                <i class="fas fa-trending-up"></i> Live data
+            </p>
         </div>
+    </div>
+</div>
+
+
 
         <!-- USDT/INR Rate -->
         <div class="col-md-3">
