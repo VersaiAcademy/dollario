@@ -296,6 +296,7 @@ $activeInvestmentCount = $stmt->fetch(PDO::FETCH_ASSOC)['active_investments'];
             font-weight: 500;
         }
 
+        
 
 </style>
 
@@ -521,6 +522,84 @@ if ($result->num_rows > 0) {
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <!-- VIEW TRANSACTION MODAL -->
+<div class="modal fade" id="viewTransactionModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Transaction Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="viewTransactionContent">
+        <!-- Details yahan fill honge -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT TRANSACTION MODAL -->
+<div class="modal fade" id="editTransactionModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="editTransactionForm" method="POST">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Transaction</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="editTxId" name="id">
+          <div class="mb-3">
+            <label>Amount</label>
+            <input type="number" id="editAmount" name="amount" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Type</label>
+            <select id="editType" name="type" class="form-control" required>
+              <option value="credit">Credit</option>
+              <option value="debit">Debit</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label>Status</label>
+            <select id="editStatus" name="status" class="form-control" required>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+              <option value="failed">Failed</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MESSAGE MODAL -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="messageForm" method="POST">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Send Message</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="messageTxId" name="transaction_id">
+          <div class="mb-3">
+            <label>Message</label>
+            <textarea id="messageText" name="message" class="form-control" rows="4" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
         <div class="pagination">
             <div class="pagination-info">
                 Showing <?php echo (($currentPage - 1) * 5) + 1; ?> to <?php echo min($currentPage * 5, $totalTransactions); ?> of <?php echo $totalTransactions; ?> entries
@@ -695,6 +774,23 @@ if ($result->num_rows > 0) {
         doc.save('users_report.pdf');
     });
 </script>
+<script>
+function viewUserDetails(userId) {
+    alert("Viewing details for: " + userId);
+    // You can later open a modal or redirect here
+}
+
+function editUser(userId) {
+    alert("Editing user: " + userId);
+    // You can later load edit form here
+}
+
+function messageUser(userId) {
+    alert("Messaging user: " + userId);
+    // You can later open a message modal here
+}
+</script>
+
 
 <?php include '../templates/footer.php'; ?>
 

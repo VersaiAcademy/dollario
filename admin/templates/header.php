@@ -167,9 +167,9 @@ $_SESSION['notifications'] = 5;
         <div class="username-dropdown">
             <?= htmlspecialchars($_SESSION['user_name']) ?> ▼
             <div class="dropdown-menu" id="userDropdown">
-    <a href="profile.php"><i class="fas fa-user"></i> My Profile</a> <!-- Profile Icon -->
-    <a href="settings.php"><i class="fas fa-cog"></i> Settings</a> <!-- Settings Icon -->
-    <a href="login.php"><i class="fas fa-sign-out-alt"></i> Logout</a> <!-- Logout Icon -->
+    <a href="../profile.php"><i class="fas fa-user"></i> My Profile</a> <!-- Profile Icon -->
+    <a href="../settings.php"><i class="fas fa-cog"></i> Settings</a> <!-- Settings Icon -->
+    <a href="../login.php"><i class="fas fa-sign-out-alt"></i> Logout</a> <!-- Logout Icon -->
 </div>
 
         </div>

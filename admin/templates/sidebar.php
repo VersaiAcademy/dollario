@@ -81,22 +81,22 @@
       <li><a href="../modules/login_history.php"><span class="material-icons">history</span> Login History</a></li>
 
       <li class="section">Financial</li>
-      <li><a href="../admin/modules/usdt_deposits.php"><span class="material-icons">account_balance_wallet</span> USDT Deposits</a></li>
-      <li><a href="../admin/modules/inr_withdrawals.php"><span class="material-icons">money_off</span> INR Withdrawals</a></li>
+      <li><a href="../modules/usdt_deposits.php"><span class="material-icons">account_balance_wallet</span> USDT Deposits</a></li>
+      <li><a href="../modules/inr_withdrawals.php"><span class="material-icons">money_off</span> INR Withdrawals</a></li>
       <!--<li><a href="../admin/modules/rate_management.php"><span class="material-icons">trending_up</span> Rate Management</a></li>
       <li><a href="../admin/modules/transaction_reports.php"><span class="material-icons">receipt_long</span> Transaction Reports</a></li>-->
 
       <li class="section">Marketing</li>
-      <li><a href="../admin/modules/referral_system.php"><span class="material-icons">group_add</span> Referral System</a></li>
-      <li><a href="../admin/modules/campaigns.php"><span class="material-icons">campaign</span> Campaigns</a></li>
-      <li><a href="../admin/modules/notifications.php"><span class="material-icons">notifications</span> Notifications</a></li>
+      <li><a href="../modules/referral_system.php"><span class="material-icons">group_add</span> Referral System</a></li>
+      <li><a href="../modules/campaigns.php"><span class="material-icons">campaign</span> Campaigns</a></li>
+      <li><a href="../modules/notifications.php"><span class="material-icons">notifications</span> Notifications</a></li>
 
       
       <li class="section">Administration</li>
-      <li><a href="../admin/modules/sub_admins.php"><span class="material-icons">admin_panel_settings</span> Sub-Admins</a></li>
-      <li><a href="../admin/modules/security.php"><span class="material-icons">security</span> Security</a></li>
-      <li><a href="../admin/modules/audit_logs.php"><span class="material-icons">receipt</span> Audit Logs</a></li>
-      <li><a href="../admin/modules/settings.php"><span class="material-icons">settings</span> Settings</a></li>
+      <li><a href="../modules/sub_admins.php"><span class="material-icons">admin_panel_settings</span> Sub-Admins</a></li>
+      <li><a href="../modules/security.php"><span class="material-icons">security</span> Security</a></li>
+      <li><a href="../modules/audit_logs.php"><span class="material-icons">receipt</span> Audit Logs</a></li>
+      <li><a href="../modules/settings.php"><span class="material-icons">settings</span> Settings</a></li>
     </ul>
   </div>
 
