@@ -160,9 +160,7 @@ $_SESSION['notifications'] = 5;
             🔔
             <span class="notification-count"><?= $_SESSION['notifications'] ?></span>
         </div>
-        <div class="avatar">
-    <i class="fas fa-user"></i> <!-- User Icon inside the avatar div -->
-</div>
+       
 
         <div class="username-dropdown">
             <?= htmlspecialchars($_SESSION['user_name']) ?> ▼

@@ -17,14 +17,21 @@ try {
 // Function to get transactions from database
 function getTransactions($pdo, $page = 1, $perPage = 5) {
     $offset = ($page - 1) * $perPage;
-    
-    $stmt = $pdo->prepare("SELECT * FROM transactions ORDER BY created_at DESC LIMIT :offset, :perPage"); // Changed to created_at
+
+    $stmt = $pdo->prepare("
+        SELECT t.*, au.username
+        FROM transactions t
+        LEFT JOIN admin_users au ON t.user_id = au.id
+        ORDER BY t.created_at DESC
+        LIMIT :offset, :perPage
+    ");
     $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
     $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
     $stmt->execute();
-    
+
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 // Function to count total transactions
 function countTransactions($pdo) {
@@ -498,8 +505,8 @@ if ($result->num_rows > 0) {
             <tbody>
                 <?php foreach ($transactions as $transaction): ?>
                 <tr data-tx-id="<?php echo htmlspecialchars($transaction['id']); ?>">
-                    <td>#<?php echo htmlspecialchars($transaction['id']); ?></td>
-                    <td><?php echo htmlspecialchars($transaction['user_name']); ?></td>
+                    <td><?php echo htmlspecialchars($transaction['id']); ?></td>
+                    <td><?php echo htmlspecialchars($transaction['user_id']); ?></td>
                     <td><?php echo htmlspecialchars($transaction['amount']); ?></td>
                     <td><?php echo htmlspecialchars($transaction['type']); ?></td>
                     <td>
@@ -507,7 +514,8 @@ if ($result->num_rows > 0) {
                             <?php echo htmlspecialchars($transaction['status']); ?>
                         </span>
                     </td>
-                    <td><?php echo date('d M, h:i A', strtotime($transaction['date'])); ?></td>
+                   <td><?php echo date('d M, h:i A', strtotime($transaction['created_at'])); ?></td>
+
                     <td>
                         <button class="btn btn-sm btn-outline" data-tooltip="View Details"
                             onclick="viewTransaction('<?php echo $transaction['id']; ?>')">
