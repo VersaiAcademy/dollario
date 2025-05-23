@@ -4,18 +4,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 include('../auth_check.php');
 
-// DB setup
-$host = 'localhost';
-$dbname = 'u973762102_dollario_admin';
-$username = 'u973762102_admin';
-$password = 'Dollario1234567';
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("DB connection failed: " . $e->getMessage());
-}
+require '../config/db.php'; // or the correct relative path
 
 $user_id = $_SESSION['user_id'];
 $kycStatus = 'not_submitted';

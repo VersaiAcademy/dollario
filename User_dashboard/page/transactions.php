@@ -1,23 +1,7 @@
 <?php include('../sidebar.php'); ?>
 <?php
-// Database connection
-$host = 'localhost';
-$dbname = 'u973762102_dollario_admin';
-$username = 'u973762102_admin';
-$password = 'Dollario1234567';
-$charset = 'utf8mb4';
+require '../config/db.php'; // or the correct relative path
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    throw new \PDOException($e->getMessage(), (int)$e->getCode());
-}
 
 // Pagination logic
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
