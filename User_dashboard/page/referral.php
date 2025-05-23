@@ -9,8 +9,8 @@ if (!$user_id) {
 
 // DB connection
 $host = 'localhost';
-$dbname = 'dollario_admin';
-$username = 'admin';
+$dbname = 'u973762102_dollario_admin';
+$username = 'u973762102_admin';
 $password = 'Dollario1234567';
 
 $conn = new mysqli($host, $username, $password, $dbname);

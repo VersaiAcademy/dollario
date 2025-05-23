@@ -4,8 +4,8 @@
 <?php
 // Database connection
 $host = 'localhost';
-$dbname = 'dollario_admin';
-$username = 'admin';
+$dbname = 'u973762102_dollario_admin';
+$username = 'u973762102_admin';
 $password = 'Dollario1234567';
 
 try {
