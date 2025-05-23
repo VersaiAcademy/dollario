@@ -2,9 +2,9 @@
 <?php
 // Database connection
 $host = 'localhost';
-$db   = 'dollario_admin';
-$user = 'root';
-$pass = '';
+$dbname = 'dollario_admin';
+$username = 'admin';
+$password = 'Dollario1234567';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

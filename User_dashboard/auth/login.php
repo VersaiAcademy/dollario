@@ -4,8 +4,8 @@ session_start();
 // Database connection
 $host = 'localhost';
 $dbname = 'dollario_admin';
-$username = 'root';
-$password = '';
+$username = 'admin';
+$password = 'Dollario1234567';
 
 try {
     // Create a PDO instance to handle the connection

@@ -4,8 +4,8 @@ session_start(); // ✅ Required to access $_SESSION
 // Database connection
 $host = 'localhost';
 $dbname = 'dollario_admin';
-$username = 'root';
-$password = '';
+$username = 'admin';
+$password = 'Dollario1234567';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

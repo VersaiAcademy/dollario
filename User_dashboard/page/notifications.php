@@ -6,8 +6,8 @@ session_start();
 // DB connection
 $host = 'localhost';
 $dbname = 'dollario_admin';
-$username = 'root';
-$password = '';
+$username = 'admin';
+$password = 'Dollario1234567';
 
 $conn = new mysqli($host, $username, $password, $dbname);
 if ($conn->connect_error) {

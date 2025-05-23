@@ -8,8 +8,8 @@ if (isset($_SESSION['user_id'], $_SESSION['role']) && $_SESSION['role'] === 'use
 // Database connection
 $host = 'localhost';
 $dbname = 'dollario_admin';
-$db_user = 'root';
-$db_pass = '';
+$username = 'admin';
+$password = 'Dollario1234567';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $db_user, $db_pass);
