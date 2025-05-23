@@ -79,7 +79,7 @@
 
   <div class="sidebar"  id="sidebar"> 
     <div class="logo">
-      <img src="../image/Dollario-logo.png" alt="" style="height: auto; width: 200px;">
+      <img src="/image/Dollario-logo.png" alt="" style="height: auto; width: 200px;">
     </div>
     <ul class="menu">
       <li class="section">Main</li>
