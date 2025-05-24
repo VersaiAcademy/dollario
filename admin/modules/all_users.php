@@ -16,7 +16,7 @@ $username = 'u973762102_dollario';
 $password = '876543Kamlesh';
 
 // Fix: use consistent connection variable name
-$conn = new mysqli($host, $user, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
