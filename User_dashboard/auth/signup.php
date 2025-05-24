@@ -6,13 +6,13 @@ if (isset($_SESSION['user_id'], $_SESSION['role']) && $_SESSION['role'] === 'use
 }
 
 // Database connection
-$host = 'localhost';
-$dbname = 'dollario_admin';
-$username = 'root';
-$password = '';
+$host = '46.202.161.91';
+$dbname = 'u973762102_admin';
+$username = 'u973762102_dollario';
+$password = '876543Kamlesh';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $db_user, $db_pass);
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());

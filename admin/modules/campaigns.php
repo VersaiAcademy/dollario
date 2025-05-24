@@ -1,6 +1,11 @@
 <?php include '../templates/sidebar.php'; include '../templates/header.php';  ?>
 <?php
-$conn = new mysqli("localhost", "root", "", "dollario_admin");
+$host = '46.202.161.91';
+$dbname = 'u973762102_admin';
+$username = 'u973762102_dollario';
+$password = '876543Kamlesh';
+
+$conn = new mysqli($host, $username, $password, $dbname);
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 // Handle Add Campaign

@@ -8,10 +8,10 @@ if (!$user_id) {
 }
 
 // DB connection
-$host = 'localhost';
-$dbname = 'dollario_admin';
-$username = 'root';
-$password = '';
+$host = '46.202.161.91';
+$dbname = 'u973762102_admin';
+$username = 'u973762102_dollario';
+$password = '876543Kamlesh';
 
 $conn = new mysqli($host, $username, $password, $dbname);
 if ($conn->connect_error) {

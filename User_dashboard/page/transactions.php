@@ -28,26 +28,103 @@ $transactions = $stmt->fetchAll();
 <head>
   <meta charset="UTF-8">
   <title>Transaction History</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; background: #f6f8fb; }
-    .container {  margin: 0 auto; background: #fff; padding: 20px; border-radius: 12px; margin-left: 260px; }
-    .page-header { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
-    .total-count { font-size: 18px; margin-bottom: 20px; color: #333; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-    table th, table td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
-    table th { background-color: #f0f0f0; }
-    .pagination a {
-      margin: 0 5px; padding: 8px 12px; text-decoration: none; color: #333;
-      background-color: #eee; border-radius: 5px;
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 0;
     }
-    .pagination a.active { background-color: #007bff; color: #fff; }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-left: 260px;
+    }
+
+    .page-header {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    .total-count {
+      font-size: 16px;
+      margin-bottom: 25px;
+      color: #374151;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    table thead {
+      background-color: #f3f4f6;
+    }
+
+    table th, table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    table tbody tr:hover {
+      background-color: #f9fafb;
+    }
+
+    .pagination {
+      text-align: center;
+    }
+
+    .pagination a {
+      margin: 0 4px;
+      padding: 8px 14px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #374151;
+      background-color: #e5e7eb;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .pagination a:hover {
+      background-color: #d1d5db;
+    }
+
+    .pagination a.active {
+      background-color: #2563eb;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin-left: 0;
+        margin: 20px;
+        padding: 20px;
+      }
+
+      table th, table td {
+        font-size: 13px;
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 <body>
 
 <div class="container">
   <div class="page-header">📄 Transaction History</div>
-  
+
   <div class="total-count">
     Total Transactions: <strong><?= $totalTransactions ?></strong>
   </div>
@@ -70,18 +147,17 @@ $transactions = $stmt->fetchAll();
             <td><?= htmlspecialchars($row['id']) ?></td>
             <td><?= htmlspecialchars($row['user_id']) ?></td>
             <td><?= htmlspecialchars($row['type']) ?></td>
-            <td><?= htmlspecialchars($row['amount']) ?></td>
+            <td>₹<?= htmlspecialchars(number_format($row['amount'], 2)) ?></td>
             <td><?= htmlspecialchars($row['status']) ?></td>
             <td><?= htmlspecialchars($row['created_at']) ?></td>
           </tr>
         <?php endforeach; ?>
       <?php else: ?>
-        <tr><td colspan="6">No transactions found.</td></tr>
+        <tr><td colspan="6" style="text-align:center;">No transactions found.</td></tr>
       <?php endif; ?>
     </tbody>
   </table>
 
-  <!-- Pagination -->
   <div class="pagination">
     <?php
       $total_pages = ceil($totalTransactions / $records_per_page);
@@ -94,3 +170,4 @@ $transactions = $stmt->fetchAll();
 
 </body>
 </html>
+

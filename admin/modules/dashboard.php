@@ -2,10 +2,14 @@
 <?php include '../templates/header.php'; ?>
 <?php
 // Database connection (example using PDO)
-$servername = "localhost"; // or $host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "dollario_admin";
+//$servername = "localhost"; // or $host = "localhost";
+//$username = "root";
+//$password = "";
+//$dbname = "dollario_admin";
+$host = '46.202.161.91';
+$dbname = 'u973762102_admin';
+$username = 'u973762102_dollario';
+$password = '876543Kamlesh';
 
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); // Use $servername here
