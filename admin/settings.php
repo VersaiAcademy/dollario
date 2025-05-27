@@ -1,6 +1,7 @@
-<?php
-include("/includes/config.php");
-?>
+    <?php
+  include "includes/db.php";
+
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

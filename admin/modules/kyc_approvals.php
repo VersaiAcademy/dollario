@@ -87,6 +87,12 @@
                 margin-right: 1rem;
                 text-align: left;
             }
+            .header{
+                margin-left: 0px;
+            }
+            .data-table-container{
+                margin-left: 0px;
+            }
         }
 
         /* Status Badges */

@@ -26,6 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'], $_POST['id']
     .container {
         margin-left: 260px;
     }
+    @media (max-width: 767px) {
+        .container {
+            margin-left: 0;
+        }
+        .header{
+            margin-left: 0px;
+        }
+    }
 </style>
 </head>
 <body>

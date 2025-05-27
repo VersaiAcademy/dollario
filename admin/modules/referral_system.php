@@ -107,12 +107,20 @@ include '../templates/header.php';
         .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background: #4CAF50; }
         input:checked + .slider:before { transform: translateX(26px); }
+        @media (max-width: 768px) {
+            .header{
+                margin-left: 0px;
+            }
+            .content-area{
+                margin-left: 0px;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100">
 
 <div class="content-area">
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto  py-8">
         <?php if($error): ?>
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"><?= $error ?></div>
         <?php endif; ?>

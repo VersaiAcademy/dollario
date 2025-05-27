@@ -73,7 +73,7 @@ while ($user = $result->fetch_assoc()) {
 
 <head>
     <meta charset="UTF-8">
-    <title>All Users</title>
+    <title>admin-All Users</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -294,6 +294,16 @@ while ($user = $result->fetch_assoc()) {
             opacity: 0.5;
             cursor: not-allowed;
         }
+        @media screen and (max-width: 768px) {
+            .header{
+                margin-left: 0px;}
+                .content-area{
+                    margin-left: 0px;
+                }
+                .data-table-container{
+                    margin-left: 0px;
+                }
+        }
     </style>
 </head>
 
@@ -301,8 +311,8 @@ while ($user = $result->fetch_assoc()) {
 
     <div class="content-area">
         <div class="page-title">
-            <span class="material-icons-round">people</span>
-            <span>All Users</span>
+            
+            
         </div>
 
         <!-- Filter Form -->

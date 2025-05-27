@@ -283,7 +283,7 @@ header {
   }
 
   .menu-btn {
-    display: block;
+    
     background: none;
     border: none;
     color: white;
@@ -291,6 +291,7 @@ header {
     cursor: pointer;
   }
 }
+
 
 
   </style>
@@ -306,12 +307,14 @@ header {
 
   <header>
   <div class="logo-container">
-    <img src="../image/dollario-logo.png" alt="Logo" class="logo" style="width: 200px;">
+       <img src="../image/Dollario-logo .svg" alt="" style="height: auto; width: 150px;">
   </div>
   <div class="menu-container">
     <button class="menu-btn" id="menuToggle">☰</button>
   </div>
 </header>
+
+
 
     <!-- Dashboard View -->
     <div class="dashboard-grid <?php echo $currentPage === 'dashboard' ? 'active' : ''; ?>" id="dashboard-view">

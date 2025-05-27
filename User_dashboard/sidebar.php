@@ -70,16 +70,20 @@
     /* ✅ Hides sidebar below 768px */
     @media (max-width: 768px) {
       .sidebar {
-        display: none !important;
+       
       }
     }
+    
   </style>
 </head>
 <body>
 
-  <div class="sidebar"  id="sidebar"> 
+  <div class="sidebar"> 
+    
     <div class="logo">
-      <img src="../image/Dollario-logo.png" alt="" style="height: auto; width: 200px;">
+      
+      <img src="../image/Dollario-logo .svg" alt="" style="height: auto; width: 150px;">
+      
     </div>
     <ul class="menu">
       <li class="section">Main</li>
@@ -93,6 +97,24 @@
       <li><a href="security.php"><span class="material-icons">lock</span> Security</a></li>
     </ul>
   </div>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const menuBtn = document.querySelector('.menu-btn');
+    const sidebar = document.querySelector('.sidebar');
+
+    console.log('menuBtn:', menuBtn);
+    console.log('sidebar:', sidebar);
+
+    if (menuBtn && sidebar) {
+      menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+      });
+    } else {
+      console.warn('Menu button or sidebar not found');
+    }
+  });
+</script>
+
 
 </body>
 </html>

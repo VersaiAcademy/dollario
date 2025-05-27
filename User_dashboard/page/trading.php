@@ -265,12 +265,7 @@ $priceChange = (($currentPrice - $historicalData[count($historicalData)-2]['clos
     </div>
   </header>
 
-    <div class="page-header">
-      <h1 class="page-title">
-        <span class="material-icons-round">show_chart</span>
-        USDT/INR Chart
-      </h1>
-    </div>
+   
 
     <div class="chart-container">
       <div class="chart-header">

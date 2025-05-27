@@ -308,12 +308,30 @@ $activeInvestmentCount = $stmt->fetch(PDO::FETCH_ASSOC)['active_investments'];
             font-weight: 500;
         }
 
-        
+       .dash-over{
+        margin-left:260px;
+     }
+       @media(max-width:768px) {
+        .dash-over{
+            margin-left:0px;
+             padding:15px;
+        }
+        .header{
+            margin-left:0px;
+        }
+
+        #usersTable{
+           overflow-x:auto!important;
+           width: 100%!important;
+        }
+       }
+    
+
 
 </style>
 
 
-<div style="margin-left:260px; padding:15px;">
+<div class="dash-over">
 <h2><i class="fas fa-chart-line"></i> Dashboard Overview</h2>
  <!-- Row for Dashboard Overview -->
  <!-- Row for Dashboard Overview -->

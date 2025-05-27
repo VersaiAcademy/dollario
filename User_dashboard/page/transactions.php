@@ -38,8 +38,7 @@ $transactions = $stmt->fetchAll();
     }
 
     .container {
-      max-width: 1000px;
-      margin: 40px auto;
+     
       background: #ffffff;
       padding: 30px;
       border-radius: 12px;

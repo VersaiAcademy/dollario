@@ -223,6 +223,9 @@ $activePage = "Audit Logs";
                 margin-left: 0;
                 padding: 15px;
             }
+            .header{
+                margin-left: 0px;
+            }
             
             .filter-group {
                 flex: 100%;

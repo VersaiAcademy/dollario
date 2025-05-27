@@ -46,7 +46,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     .container {
-        max-width: 1000px;
+       
         margin: auto;
         margin-left: 260px;
         background-color: #fff;
@@ -108,6 +108,12 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         h2 {
             font-size: 20px;
+        }
+        .container{
+            margin-left: 0px;
+        }
+        .header{
+            margin-left: 0px;
         }
     }
 </style>

@@ -681,6 +681,11 @@ $activePage = "Settings";
         @media (max-width: 768px) {
             .content-area {
                 padding: 15px;
+                margin-left: 0px!important;
+                
+            }
+            .header{
+                margin-left: 0px!important;
             }
 
             .tabs {

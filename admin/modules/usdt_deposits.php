@@ -13,6 +13,14 @@
         margin-left: 260px;
         
     }
+    @media (max-width: 767px) {
+        .container {
+            margin-left: 0;
+        }
+        .header{
+            margin-left: 0px;
+        }
+    }
 </style>
 <body>
 <div class="container mt-5">

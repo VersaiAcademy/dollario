@@ -443,7 +443,8 @@ while ($row = $result->fetch_assoc()) {
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .content-area {
-                padding: 15px;
+                
+                margin-left: 0px;
             }
 
             .form-row {
@@ -453,6 +454,9 @@ while ($row = $result->fetch_assoc()) {
 
             .campaign-cards {
                 grid-template-columns: 1fr;
+            }
+            .header{
+                margin-left: 0px;
             }
         }
     </style>

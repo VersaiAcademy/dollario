@@ -509,6 +509,9 @@ $notifications = $result->fetch_all(MYSQLI_ASSOC);
             .custom-date-range {
                 flex-direction: column;
             }
+            .header{
+                margin-left: 0px;
+            }
         }
     </style>
 </head>

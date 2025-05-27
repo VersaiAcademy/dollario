@@ -247,10 +247,11 @@ header {
   </div>
 </header>
 
-    <h2>Your Referral Dashboard</h2>
+    
 
     <!-- Referral Code Section -->
     <div class="card">
+        <!--<h2>Your Referral Dashboard</h2>-->
         <div class="card-header">
             <h3>Referral Code</h3>
             <a href="#" class="referral-link" onclick="copyReferralLink()">Copy Referral Link</a>
