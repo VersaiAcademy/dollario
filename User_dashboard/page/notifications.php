@@ -429,11 +429,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 align-items: flex-start;
                 gap: 1rem;
             }
+             .sidebar {
+    display: none;
+  }
         }
         
     </style>
 </head>
 <body>
+    
     <!-- Header -->
     <header>
         <div class="container header-container">

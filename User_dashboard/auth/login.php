@@ -277,7 +277,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </style>
 <body>
     <div class="left-section">
-        <img src="../image/dollario-logo.png" alt="HubPay Logo" class="logo">
+        <img src="../image/dollario-logo .svg" alt="HubPay Logo" class="logo">
         <div class="left-content">
             <h1 class="left-title">Welcome Back to Dollario</h1>
             <p class="left-subtitle">Log in and continue your crypto journey.</p>
@@ -300,7 +300,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="forgot-password">
-                <a href="#">Forgot Password?</a>
+                <a href="forgot_password.php">Forgot Password?</a>
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>

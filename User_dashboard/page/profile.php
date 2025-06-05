@@ -297,6 +297,9 @@ $bankAccounts = $bankStmt->fetchAll(PDO::FETCH_ASSOC);
       .action-buttons {
         flex-direction: column;
       }
+       .sidebar {
+    display: none;
+  }
     }
 
     @media (max-width: 480px) {

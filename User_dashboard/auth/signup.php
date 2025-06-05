@@ -300,7 +300,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="left-section">
-        <img src="../image/dollario-logo.png" alt="Dollario Logo" class="logo">
+        <img src="../image/dollario-logo .svg" alt="Dollario Logo" class="logo">
         <div class="left-content">
             <h1 class="left-title">Join Dollario Today</h1>
             <p class="left-subtitle">Start your crypto journey with our secure platform.</p>

@@ -116,6 +116,9 @@ $transactions = $stmt->fetchAll();
         font-size: 13px;
         padding: 10px;
       }
+       .sidebar {
+    display: none;
+  }
     }
   </style>
 </head>

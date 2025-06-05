@@ -219,6 +219,9 @@ header {
   .container{
     margin-left: 0px;
   }
+   .sidebar {
+    display: none;
+  }
 }
 
 .logo-container img.logo {

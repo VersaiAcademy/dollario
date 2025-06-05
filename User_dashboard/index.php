@@ -115,7 +115,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            background: url('uploads/backgroundimg.png') no-repeat center center;
+            background: url('image/backgroundimg.png') no-repeat center center;
             background-size: cover;
             background-attachment: fixed;
             position: relative;
@@ -788,7 +788,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
     <header>
         <nav class="nav-container">
             <div class="sidebar-header">
-                <img src="uploads/Dollario-logo .svg" alt="Logo">
+                <img src="image/Dollario-logo .svg" alt="Logo">
             </div>
             <div class="nav-links">
                 <a href="#"><i class="fas fa-exchange-alt"></i> Trade</a>
@@ -797,8 +797,8 @@ $pageTitle = "DollaRio - Crypto Exchange";
                <div class="dropdown">
   <a href="#"><i class="fas fa-user"></i> Account <i class="fas fa-caret-down"></i></a>
   <div class="dropdown-content">
-    <a href="login.php">Login</a>
-    <a href="register.php">Register</a>
+    <a href="auth/login.php">Login</a>
+    <a href="auth/signup.php">Register</a>
   </div>
 </div>
 
@@ -848,7 +848,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
             </div>
             <div class="price-ticker">
                 <div class="rupeee">
-                    <img src="uploads/golden-coin.png" alt="rupee-img">
+                    <img src="image/golden-coin.png" alt="rupee-img">
                 </div>
                 <div class="price">₹83.24</div>
                 <p>Current USDT/INR Price</p>
@@ -993,7 +993,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
 
         <div class="footer-bottom">
             <div class="footer-logo">
-                <img src="uploads/Dollario-logo .svg" alt="DollarRio Logo">
+                <img src="image/Dollario-logo .svg" alt="DollarRio Logo">
             </div>
             <p class="copyright">© 2025 DollarRio. All Rights Reserved.</p>
         </div>
