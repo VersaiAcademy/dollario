@@ -1,6 +1,9 @@
 <?php include('../sidebar.php'); ?>
+<?php include('submit_help.php'); ?>
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once 'PHPGangsta/GoogleAuthenticator.php';
 
 // ---------------------- Session Timeout -----------------------

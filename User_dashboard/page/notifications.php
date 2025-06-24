@@ -1,7 +1,10 @@
 <?php include('../sidebar.php'); ?>
+<?php include('submit_help.php'); ?>
 <?php
 // notification.php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // DB connection
 $host = '46.202.161.91';

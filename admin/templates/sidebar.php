@@ -150,6 +150,7 @@
       <li><a href="../modules/security.php"><span class="material-icons">security</span> Security</a></li>
       <li><a href="../modules/audit_logs.php"><span class="material-icons">receipt</span> Audit Logs</a></li>
       <li><a href="../modules/settings.php"><span class="material-icons">settings</span> Settings</a></li>
+            <li><a href="../modules/admin_help_requests.php"><span class="material-icons">help</span> Help</a></li>
     </ul>
   </div>
 

@@ -1,6 +1,6 @@
 <?php include('../sidebar.php'); ?>
 <?php include('../auth_check.php'); ?>
-
+<?php include('submit_help.php'); ?>
 <?php
 
 require '../config/db.php'; // or the correct relative path

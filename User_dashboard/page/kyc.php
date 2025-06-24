@@ -1,8 +1,9 @@
 <?php include('../sidebar.php'); ?>
+<?php include('submit_help.php'); ?>
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-include('../auth_check.php');
+
 
 
 require '../config/db.php'; // or the correct relative path

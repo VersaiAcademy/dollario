@@ -1,6 +1,9 @@
 <?php include('../sidebar.php'); ?>
+<?php include('submit_help.php'); ?>
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $user_id = $_SESSION['user_id'] ?? null;
 
 if (!$user_id) {

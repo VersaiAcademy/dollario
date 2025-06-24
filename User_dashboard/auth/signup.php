@@ -87,8 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .left-section {
             width: 50%;
-            background: #08172E;
-            color: white;
+            background: #000000;
+            color: #D4AF37;
             padding: 60px;
             display: flex;
             flex-direction: column;
@@ -202,12 +202,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .btn-primary {
-            background-color: #36465D;
+            background-color: #D4AF37;
             color: white;
         }
 
         .btn-primary:hover {
-            background-color: #283444;
+            background-color: #D4AF37;
             transform: translateY(-2px);
         }
 
@@ -352,7 +352,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endif; ?>
 
             <p class="login-link">Already have an account? <a href="login.php">Login here</a></p>
-            <p class="terms">By creating an account, you agree to our <a href="#">Terms and Conditions</a> &amp; <a href="#">Privacy Policy</a>.</p>
+            <p class="terms">By creating an account, you agree to our <a href="..\terms-condistion.php">Terms and Conditions</a> &amp; <a href="..\privacy-policy.php">Privacy Policy</a>.</p>
         </form>
     </div>
 </body>
