@@ -29,5 +29,6 @@ if (isset($_SESSION['user_id'])) {
 
 <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
 
+
 </body>
 </html>

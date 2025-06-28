@@ -1,7 +1,7 @@
 <?php
 // Handle status change BEFORE any output
 if (isset($_GET['change_status']) && isset($_GET['id'])) {
-    $pdo = new PDO("mysql:host=localhost;dbname=dollario_admin", 'root', '');
+    $pdo = new PDO("mysql:host=46.202.161.91;dbname=u973762102_admin", 'u973762102_dollario', '876543Kamlesh');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $id = $_GET['id'];

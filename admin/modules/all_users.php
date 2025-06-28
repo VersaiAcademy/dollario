@@ -435,7 +435,7 @@ while ($user = $result->fetch_assoc()) {
             <tbody>
                 <?php
                 // Database connection (update DB name if needed)
-                $mysqli = new mysqli("localhost", "root", "", "dollario_admin");
+                $mysqli = new mysqli("localhost", "root", "", "u973762102_admin");
 
                 // Check connection
                 if ($mysqli->connect_error) {

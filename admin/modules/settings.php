@@ -3,10 +3,10 @@ include '../templates/sidebar.php';
 include '../templates/header.php';
 
 // Database configuration
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'dollario_admin');
+define('DB_HOST', '46.202.161.91');
+define('DB_USER', 'u973762102_dollario');
+define('DB_PASS', '876543Kamlesh');
+define('DB_NAME', 'u973762102_admin');
 
 // Connect to database
 try {

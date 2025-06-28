@@ -5,7 +5,7 @@
 $host = 'localhost';
 $username = 'root';
 $password = '';
-$database = 'dollario_admin';
+$database = 'u973762102_admin';
 
 $connection = mysqli_connect($host, $username, $password, $database);
 if (!$connection) {

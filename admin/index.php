@@ -210,7 +210,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
             padding: 10px 20px;
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: #008000;
             border-radius: 8px;
             z-index: 1;
             display: inline-block;
@@ -975,8 +975,9 @@ $pageTitle = "DollaRio - Crypto Exchange";
             <div class="footer-column">
                 <h3>Legal</h3>
                 <ul>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="terms.php">Terms & Conditions</a></li>
+                    <li><a href="privacy-policey.php">Privacy Policy</a></li>
+                     <li><a href="Faq.php">Faq</a></li>
                 </ul>
             </div>
 

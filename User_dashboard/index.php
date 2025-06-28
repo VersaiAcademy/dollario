@@ -210,7 +210,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
             padding: 10px 20px;
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: #008000;
             border-radius: 8px;
             z-index: 1;
             display: inline-block;
@@ -847,6 +847,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
                 </div>
             </div>
             <div class="price-ticker">
+                
                 <div class="rupeee">
                     <img src="image/golden-coin.png" alt="rupee-img">
                 </div>
@@ -855,6 +856,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
             </div>
         </div>
     </section>
+    
 
     <section class="features">
         <div class="features-container">
@@ -958,6 +960,51 @@ $pageTitle = "DollaRio - Crypto Exchange";
             </div>
         </div>
     </section>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const questions = document.querySelectorAll(".faq-question");
+
+        questions.forEach(question => {
+            question.addEventListener("click", function () {
+                const answer = this.nextElementSibling;
+                this.classList.toggle("active");
+                answer.classList.toggle("open");
+            });
+        });
+    });
+</script>
+<style>
+   .faq-answer {
+    display: none;
+    padding: 10px 0;
+    color: #fff; /* or #000 if background is light */
+   
+}
+
+
+    .faq-answer.open {
+        display: block;
+        max-height: 100%;
+    }
+
+    .faq-question {
+        cursor: pointer;
+        font-weight: bold;
+        margin: 10px 0;
+        transition: color 0.3s ease;
+    }
+
+    .faq-question.active {
+        color: #ffffff;
+    }
+
+    .faq-item {
+        margin-bottom: 15px;
+     
+        padding-bottom: 10px;
+    }
+</style>
+
 
     <!-- Footer -->
     <footer>
@@ -975,8 +1022,9 @@ $pageTitle = "DollaRio - Crypto Exchange";
             <div class="footer-column">
                 <h3>Legal</h3>
                 <ul>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="terms-condistion.php">Terms & Conditions</a></li>
+                    <li><a href="privacy-policy.php">Privacy Policy</a></li>
+                    <li><a href="Faq.php">Faq</a></li>
                 </ul>
             </div>
 

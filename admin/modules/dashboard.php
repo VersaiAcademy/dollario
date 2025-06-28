@@ -107,6 +107,7 @@ $activeInvestmentCount = $stmt->fetch(PDO::FETCH_ASSOC)['active_investments'];
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+        
     }
     .col-md-3 {
         margin-bottom: 15px;
@@ -331,6 +332,8 @@ $activeInvestmentCount = $stmt->fetch(PDO::FETCH_ASSOC)['active_investments'];
 </style>
 
 
+
+
 <div class="dash-over">
 <h2><i class="fas fa-chart-line"></i> Dashboard Overview</h2>
  <!-- Row for Dashboard Overview -->
@@ -423,7 +426,7 @@ $activeInvestmentCount = $stmt->fetch(PDO::FETCH_ASSOC)['active_investments'];
                     <tbody>
                     <?php
 // Database connection (update DB name if needed)
-$mysqli = new mysqli("localhost", "root", "", "dollario_admin");
+$mysqli = new mysqli("localhost", "root", "", "u973762102_admin");
 
 // Check connection
 if ($mysqli->connect_error) {

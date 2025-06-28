@@ -1,53 +1,62 @@
-<?php include('../sidebar.php'); ?>
-
 <?php
-require '../config/db.php'; // or the correct relative path
+session_start();
+require '../config/db.php'; // Make sure $pdo is set inside this
+
+// Redirect if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../auth/login.php");
+    exit();
+}
 
 // Get current page from URL
 $currentPage = isset($_GET['page']) ? $_GET['page'] : 'profile';
 
-// Fetch current logged-in user (replace with session logic in real app)
-$userId = 1;
+// Logged-in user ID
+$userId = $_SESSION['user_id'];
+
+// Fetch user profile
 $userStmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $userStmt->execute([$userId]);
 $user = $userStmt->fetch(PDO::FETCH_ASSOC);
 
-// Fetch wallet balance
+// Wallet balance
 $walletStmt = $pdo->prepare("SELECT * FROM wallets WHERE user_id = ?");
 $walletStmt->execute([$userId]);
-$wallet = $walletStmt->fetch(PDO::FETCH_ASSOC) ?? ['inr_balance' => 0, 'usdt_balance' => 0];
-
-// Fetch KYC status
-$kycStmt = $pdo->prepare("SELECT status FROM kyc_verifications WHERE user_id = ? ORDER BY id DESC LIMIT 1");
-$kycStmt->execute([$userId]);
-$kyc = $kycStmt->fetch(PDO::FETCH_ASSOC);
-if (!$kyc) {
-    $kyc = ['status' => 'not_verified'];
+$wallet = $walletStmt->fetch(PDO::FETCH_ASSOC);
+if (!$wallet || !is_array($wallet)) {
+    $wallet = ['inr_balance' => 0, 'usdt_balance' => 0];
 }
 
-// Current USDT price (simulated)
+
+// KYC status
+$kycStmt = $pdo->prepare("SELECT status FROM kyc_verifications WHERE user_id = ? ORDER BY id DESC LIMIT 1");
+$kycStmt->execute([$userId]);
+$kyc = $kycStmt->fetch(PDO::FETCH_ASSOC) ?: ['status' => 'not_verified'];
+
+// Simulated USDT price
 $currentPrice = 84.50 + (rand(-100, 100) / 100);
 
-// ✅ Fetch all users
+// Bank accounts
+$bankStmt = $pdo->prepare("SELECT * FROM bank_accounts WHERE user_id = ? ORDER BY is_primary DESC, added_on DESC");
+$bankStmt->execute([$userId]);
+$bankAccounts = $bankStmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Optional: all users (only if admin or needed)
 $usersStmt = $pdo->query("SELECT * FROM users");
 $users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
 
-
+// Flash messages
 if (isset($_GET['success']) && $_GET['success'] == 'profile_updated') {
     echo "<p style='color:green;'>Profile updated successfully!</p>";
 } elseif (isset($_GET['error']) && $_GET['error'] == 'update_failed') {
     echo "<p style='color:red;'>Failed to update profile. Try again.</p>";
 }
 
-// bank detals
-$bankStmt = $pdo->prepare("SELECT * FROM bank_accounts WHERE user_id = ? ORDER BY is_primary DESC, added_on DESC");
-$bankStmt->execute([$userId]);
-$bankAccounts = $bankStmt->fetchAll(PDO::FETCH_ASSOC);
 
-// kyc 
-
-
+// Now you can include this file in profile page and use:
+// $user['username'], $wallet['inr_balance'], $kyc['status'], etc.
 ?>
+
 
 
 <!DOCTYPE html>
@@ -350,14 +359,64 @@ header {
 
   <!-- Main Content -->
   <main class="main-content">
-    <header>
+ <header>
   <div class="logo-container">
-    <img src="../image/dollario-logo.png" alt="Logo" class="logo" style="width: 200px;">
+       <img src="../image/Dollario-logo .svg" alt="" style="height: auto; width: 150px;">
   </div>
   <div class="menu-container">
-    <button class="menu-btn">☰</button>
+    <button class="menu-btn" id="menuToggle">☰</button>
   </div>
 </header>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const menuBtn = document.getElementById('menuToggle');
+    const sidebar = document.querySelector('.sidebar'); // or whatever class/id your menu has
+
+    menuBtn.addEventListener('click', function () {
+      sidebar.classList.toggle('active'); // Add or remove class to show/hide menu
+    });
+  });
+</script>
+<style>  /* Hide header by default (for screens larger than 768px) */
+header {
+  display: none;
+}
+
+/* Show header only on phone view (768px and below) */
+@media (max-width: 768px) {
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color:#0e1a2b; /* You can change this */
+    color: white;
+  }
+
+  .logo-container {
+    flex: 1;
+    text-align: left;
+  }
+
+  .menu-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .menu-btn {
+    
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+}
+
+
+
+  </style>
     <div class="page-header">
       <h1 class="page-title">
         <span class="material-icons-round">person</span>
@@ -415,6 +474,7 @@ header {
         </span>
       </div>
     </div>
+    <!---- Guest Personal Information -->
 
    <style>
   .form-section {
@@ -593,19 +653,20 @@ header {
           </h3>
           
           <div class="wallet-summary">
-            <div class="wallet-item">
-              <span>USDT Balance</span>
-              <strong><?php echo number_format($wallet['usdt_balance'], 4); ?> USDT</strong>
-            </div>
-            <div class="wallet-item">
-              <span>INR Balance</span>
-              <strong>₹<?php echo number_format($wallet['inr_balance'], 2); ?></strong>
-            </div>
-            <div class="wallet-item">
-              <span>Total Value</span>
-              <strong>₹<?php echo number_format($wallet['inr_balance'] + ($wallet['usdt_balance'] * $currentPrice), 2); ?></strong>
-            </div>
-          </div>
+  <div class="wallet-item">
+    <span>USDT Balance</span>
+    <strong><?php echo number_format($wallet['usdt_balance'], 4); ?> USDT</strong>
+  </div>
+  <div class="wallet-item">
+    <span>INR Balance</span>
+    <strong>₹<?php echo number_format($wallet['inr_balance'], 2); ?></strong>
+  </div>
+  <div class="wallet-item">
+    <span>Total Value</span>
+    <strong>₹<?php echo number_format($wallet['inr_balance'] + ($wallet['usdt_balance'] * $currentPrice), 2); ?></strong>
+  </div>
+</div>
+
           
           <div class="action-buttons">
           <?php if ($kyc['status'] !== 'verified'): ?>
@@ -648,11 +709,12 @@ header {
     </div>
 
     <div class="info-item">
-      <span class="info-label">Account Status</span>
-      <span class="info-value" style="color: <?php echo ($user['status'] === 'active') ? 'var(--success)' : 'red'; ?>">
-        <?php echo ucfirst($user['status']); ?>
-      </span>
-    </div>
+  <span class="info-label">Account Status</span>
+  <span class="info-value" style="color: <?php echo (isset($user['status']) && $user['status'] === 'active') ? 'var(--success)' : 'red'; ?>">
+    <?php echo isset($user['status']) ? ucfirst($user['status']) : ucfirst($kyc['status']); ?>
+  </span>
+</div>
+
   </div>
 
   <div class="action-buttons">

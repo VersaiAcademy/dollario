@@ -1,17 +1,14 @@
-
 <?php
-
 session_start();
-
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.php");
     exit();
 }
 
-$user_name = $_SESSION['user_name'] ?? 'Guest';
+$username = $_SESSION['username'] ?? 'Admin';
 $email = $_SESSION['email'] ?? '';
 $phone = $_SESSION['phone'] ?? '';
-$profile_picture = $_SESSION['profile_picture'] ?? '';
+$profile_picture = $_SESSION['profile_picture'] ?? 'default.png';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -160,12 +157,12 @@ $profile_picture = $_SESSION['profile_picture'] ?? '';
                 <div class="icon"><i class="fas fa-user-circle"></i></div>
             <?php endif; ?>
         </div>
+<div class="profile-details">
+    <p><strong>Name:</strong> <?= htmlspecialchars($username) ?></p>
+    <p><strong>Email:</strong> <?= htmlspecialchars($email) ?></p>
+    <p><strong>Phone:</strong> <?= htmlspecialchars($phone) ?></p>
+</div>
 
-        <div class="profile-details">
-            <p><strong>Name:</strong> <?= htmlspecialchars($user_name) ?></p>
-            <p><strong>Email:</strong> <?= htmlspecialchars($email) ?></p>
-            <p><strong>Phone:</strong> <?= htmlspecialchars($phone) ?></p>
-        </div>
     </div>
 
     <!-- Update Profile Form -->
@@ -173,7 +170,7 @@ $profile_picture = $_SESSION['profile_picture'] ?? '';
         <h2>✏️ Update Profile</h2>
         <form action="update_profile.php" method="POST" enctype="multipart/form-data">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" value="<?= htmlspecialchars($user_name) ?>" required>
+            <input type="text" id="username" name="username" value="<?= htmlspecialchars($username) ?>" required>
 
             <label for="email">Email</label>
             <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required>
@@ -181,8 +178,8 @@ $profile_picture = $_SESSION['profile_picture'] ?? '';
             <label for="phone">Phone</label>
             <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($phone) ?>" required>
 
-            <label for="profile_picture">Profile Picture</label>
-            <input type="file" id="profile_picture" name="profile_picture">
+            <!-- <label for="profile_picture">Profile Picture</label>
+            <input type="file" id="profile_picture" name="profile_picture"> -->
 
             <button type="submit" name="update_profile">Update</button>
         </form>

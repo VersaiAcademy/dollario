@@ -1,6 +1,6 @@
 <?php include('../sidebar.php'); ?>
 <?php include('../auth_check.php'); ?>
-
+<?php include('submit_help.php'); ?>
 <?php
 
 require '../config/db.php'; // or the correct relative path
@@ -313,6 +313,17 @@ header {
     <button class="menu-btn" id="menuToggle">☰</button>
   </div>
 </header>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const menuBtn = document.getElementById('menuToggle');
+    const sidebar = document.querySelector('.sidebar'); // or whatever class/id your menu has
+
+    menuBtn.addEventListener('click', function () {
+      sidebar.classList.toggle('active'); // Add or remove class to show/hide menu
+    });
+  });
+</script>
+
 
 
 
