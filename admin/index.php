@@ -105,7 +105,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
             border: none;
             color: white;
             font-size: 1.5rem;
-            margin-top: 30px;
+            margin-top: -68px;
         }
 
         /* Hero Section */
@@ -753,7 +753,14 @@ $pageTitle = "DollaRio - Crypto Exchange";
             .language-toggle {
                 width: 100px;
             }
+            .cta-buttons {
+            display: flex;
+            
+            gap: 1rem;
+            flex-wrap: wrap;
         }
+        }
+        
 
          /* Basic dropdown styles */
   .dropdown {
@@ -781,6 +788,50 @@ $pageTitle = "DollaRio - Crypto Exchange";
   .dropdown:hover .dropdown-content {
     display: block;
   }
+
+
+   .price-ticker {
+    background-image: url('images/download.png');
+    background-size: cover;
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    animation: scrollBg 20s linear infinite;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Overlay for better readability (optional) */
+.price-ticker::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+ /* background: rgba(0, 0, 0, 0.4); */
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.price-ticker > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Animation keyframes for moving background */
+@keyframes scrollBg {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
     </style>
 </head>
 
@@ -821,6 +872,21 @@ $pageTitle = "DollaRio - Crypto Exchange";
             </button>
         </nav>
     </header>
+    <nav class="mobile-menu">
+   
+         <div class="nav-links">
+                <a href="#"><i class="fas fa-exchange-alt"></i> Trade</a>
+                <a href="#"><i class="fas fa-chart-line"></i> Markets</a>
+                <a href="#"><i class="fas fa-wallet"></i> Wallet</a>
+               <div class="dropdown">
+  <a href="#"><i class="fas fa-user"></i> Account <i class="fas fa-caret-down"></i></a>
+  <div class="dropdown-content">
+    <a href="login.php">Login</a>
+    <a href="register.php">Register</a>
+  </div>
+</div>
+    
+</nav>
 
     <section class="hero">
         <div class="hero-container">
