@@ -72,6 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             width: 50%;
             background: #000000;
             color: #D4AF37;
+            background: #000000;
+            color: #D4AF37;
             padding: 60px;
             display: flex;
             flex-direction: column;
@@ -186,10 +188,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .btn-primary {
             background-color: #D4AF37;
+            background-color: #D4AF37;
             color: white;
         }
 
         .btn-primary:hover {
+            background-color: #D4AF37;
             background-color: #D4AF37;
             transform: translateY(-2px);
         }
