@@ -1,6 +1,6 @@
 <?php
 session_start();
-$pdo = new PDO("mysql:host=localhost;dbname=dollario_admin", "root", "");
+$pdo = new PDO("mysql:host=localhost;dbname=u973762102_admin", "root", "");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Replace with session
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO bank_accounts (user_id, bank_name, account_number) VALUES (?, ?, ?)");
     $stmt->execute([$userId, $bank_name, $account_number]);
 
-    header("Location: profile.php?success=bank_added");
+    header("Location: ../page/profile.php");
     exit;
 }
 ?>

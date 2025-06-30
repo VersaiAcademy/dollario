@@ -511,7 +511,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
             .nav-links {
                 display: none;
                 position: absolute;
-                top: 100%;
+                top: 100px;
                 left: 0;
                 right: 0;
                 background: var(--background);
@@ -526,6 +526,7 @@ $pageTitle = "DollaRio - Crypto Exchange";
 
             .mobile-menu-btn {
                 display: block;
+                margin-top: -68px;
             }
 
             .hero {
@@ -866,6 +867,86 @@ $pageTitle = "DollaRio - Crypto Exchange";
             </button>
         </nav>
     </header>
+    <nav class="mobile-menu">
+   
+         <div class="nav-links">
+                <a href="#"><i class="fas fa-exchange-alt"></i> Trade</a>
+                <a href="#"><i class="fas fa-chart-line"></i> Markets</a>
+                <a href="#"><i class="fas fa-wallet"></i> Wallet</a>
+               <div class="dropdown">
+  <a href="#"><i class="fas fa-user"></i> Account <i class="fas fa-caret-down"></i></a>
+  <div class="dropdown-content" style="background-color: black;">
+    <a href="login.php">Login</a>
+    <a href="register.php">Register</a>
+  </div>
+</div>
+    
+</nav>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('open');
+    });
+});
+</script>
+<style>
+    /* Hide menu by default */
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 60px; /* adjust based on your header height */
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 999;
+}
+
+/* Show menu when .open class is added */
+.mobile-menu.open {
+    display: block;
+}
+
+.mobile-menu .nav-links {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.mobile-menu .nav-links a {
+    
+    text-decoration: none;
+    color: white;
+}
+
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+@media (min-width: 768px) {
+    .mobile-menu-btn {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: none !important; /* Hide mobile menu on desktop */
+    }
+    /* .nav-links {
+        display: flex;
+        gap: 2rem;
+        margin-top: 27px;
+    } */
+ 
+}
+
+</style>
 
     <section class="hero">
         <div class="hero-container">

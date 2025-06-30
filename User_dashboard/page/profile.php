@@ -675,10 +675,32 @@ header {
     Complete KYC
   </a>
 <?php endif; ?>
-            <button class="btn btn-outline">
-              <span class="material-icons-round">receipt</span>
-              View Statements
-            </button>
+     <?php
+// Fetching bank accounts from DB
+$bankStmt = $pdo->prepare("SELECT * FROM bank_accounts WHERE user_id = ? ORDER BY is_primary DESC, added_on DESC");
+$bankStmt->execute([$userId]);
+$bankAccounts = $bankStmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!-- Loop through each bank account -->
+<?php if ($bankAccounts): ?>
+  <?php foreach ($bankAccounts as $bank): ?>
+    <div>
+      <strong><?= htmlspecialchars($bank['bank_name']) ?></strong>
+
+      <!-- ✅ View Statements Button (safe inside the loop) -->
+      <a href="/Dollario/User_dashboard/page/view_statements.php?bank_id=<?= htmlspecialchars($bank['id']) ?>" class="btn btn-outline">
+        <span class="material-icons-round">receipt</span>
+        View Statements
+      </a>
+    </div>
+  <?php endforeach; ?>
+<?php else: ?>
+  <p>No bank accounts found.</p>
+<?php endif; ?>
+
+
+
           </div>
         </div>
 
@@ -760,13 +782,11 @@ header {
 
         <div class="action-buttons" style="margin-top: 10px;">
           <?php if (!$bank['is_primary']): ?>
-            <form method="post" action="set_primary_account.php">
-              <input type="hidden" name="bank_id" value="<?= $bank['id'] ?>">
-              <button class="btn btn-outline" type="submit">
-                <a href="set_primary.php?account_id=123" class="btn btn-outline">Set as Primary</a>
+           <form method="post" action="set_primary_account.php">
+  <input type="hidden" name="bank_id" value="<?= $bank['id'] ?>">
+  <button class="btn btn-outline" type="submit">Set as Primary</button>
+</form>
 
-              </button>
-            </form>
           <?php endif; ?>
         </div>
       </div>

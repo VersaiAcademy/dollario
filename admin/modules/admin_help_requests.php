@@ -18,14 +18,14 @@ if (!$conn) {
 }
 
 // ✅ Check if tables exist before query
-$checkTable = mysqli_query($conn, "SHOW TABLES LIKE 'help_requests'");
+$checkTable = mysqli_query($conn, "SHOW TABLES LIKE 'user_help_requests'");
 if (mysqli_num_rows($checkTable) == 0) {
-    die("❌ Table 'help_requests' does not exist. Please create it in your local DB.");
+    die("❌ Table 'user_help_requests' does not exist. Please create it in your local DB.");
 }
 
 // ✅ Run query only if table exists
 $sql = "SELECT hr.*, u.username, u.email 
-        FROM help_requests hr 
+        FROM user_help_requests hr 
         JOIN users u ON hr.user_id = u.id 
         ORDER BY hr.created_at DESC";
 

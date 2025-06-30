@@ -3,36 +3,44 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Direct DB connection (without external file)
+// DB Connection
 $host = '46.202.161.91';
 $dbname = 'u973762102_admin';
 $username = 'u973762102_dollario';
 $password = '876543Kamlesh';
 
-// Establish MySQL connection
 $conn = mysqli_connect($host, $username, $password, $dbname);
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user_id = $_POST['user_id'];
-    $subject = $_POST['subject'];
-    $message = $_POST['message'];
+    $user_id = $_SESSION['user_id'] ?? null;  // use session user_id
+    $subject = $_POST['subject'] ?? null;
+    $message = $_POST['message'] ?? null;
 
-    $sql = "INSERT INTO help_requests (user_id, subject, message, created_at)
-            VALUES ('$user_id', '$subject', '$message', NOW())";
-
-    if (mysqli_query($conn, $sql)) {
-        echo "<script>alert('Help request sent successfully!');</script>";
-    } else {
-        echo "<script>alert('Something went wrong!');</script>";
+    if (!$user_id || !$subject || !$message) {
+        echo "<script>alert('Please fill all the fields.'); window.history.back();</script>";
+        exit;
     }
+
+    $stmt = $conn->prepare("INSERT INTO user_help_requests (user_id, subject, message, created_at) VALUES (?, ?, ?, NOW())");
+    $stmt->bind_param("iss", $user_id, $subject, $message);
+
+    if ($stmt->execute()) {
+        echo "<script>alert('Help request sent successfully!'); window.location.href='submit_help.php';</script>";
+    } else {
+        echo "<script>alert('Something went wrong!'); window.history.back();</script>";
+    }
+
+    $stmt->close();
 }
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -138,12 +146,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="help-form-container">
       <span id="closeHelpModal">✖</span>
       <h2>Need Help?</h2>
-      <form method="POST">
-        <input type="text" name="subject" placeholder="Subject" required>
-        <textarea name="message" placeholder="Describe your issue..." rows="5" required></textarea>
-        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-        <button type="submit">Submit</button>
-      </form>
+    <form method="POST" action="submit_help.php">
+    <label>Subject:</label>
+    <input type="text" name="subject" required><br><br>
+
+    <label>Message:</label>
+    <textarea name="message" required></textarea><br><br>
+
+    <button type="submit">Submit Help Request</button>
+</form>
+
+
     </div>
   </div>
 
